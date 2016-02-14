@@ -1,0 +1,25 @@
+{
+  "name": "whistle.vase",
+  "description": "数据工厂vase的whistle插件",
+  "version": "0.0.10",
+  "main": "lib/index.js",
+  "author": "avenwu <avenwu.wwb@alibaba-inc.com>",
+  "contributors": [],
+  "license": "MIT",
+  "keywords": [
+    "vase",
+    "whistle",
+    "plugin"
+  ],
+  "homepage": "https://github.com/whistle-plugins/whistle.vase",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whistle-plugins/whistle.vase.git"
+  },
+  "dependencies": {
+    "vase": "*"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
+}
