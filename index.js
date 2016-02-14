@@ -1,2 +1,2 @@
-module.exports = require('../../github/vase');
+module.exports = require('vase');
 
