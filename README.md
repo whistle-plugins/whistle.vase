@@ -132,7 +132,7 @@ speed: 设置输出的速度kbs
 	out(header('content-type', 'text/plain; charset=utf8'));
 	out(header('x-test', 'abc'));
 
-#### headers(obj)
+### headers(obj)
 设置响应头
 
 	out(headers({
@@ -239,32 +239,47 @@ speed: 设置输出的速度kbs
 ### join(arr, seperator)
 与数组的`join`方法一样，拼接数组
 
-	out(join([json('{"test": 123}'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json'), 'test', file('/User/xxx/test.html')]));
+	out(join([json('{"test": 123}'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json')), 'test', file('/User/xxx/test.html')]));
 	
-如果使用默认的separator(`,`)，也可以写成这样
+如果使用默认的separator(`,`)，也可以写成这样 `join(arg1, ..., argN)`
 
-	out(join(json('{"test": 123}'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json'), 'test', file('/User/xxx/test.html')));
-
+	out(join(json('{"test": 123}'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json')), 'test', file('/User/xxx/test.html')));
 	
 
 
-1. out: 所有的数据都要通过该方法才能输出到响应中
-2. write: 同out
-3. status: 设置响应状态码
-4. statusCode: 同status
-5. header: 设置响应头部
-6. headers: 批量设置响应头部
-7. file: 读取本地文件
-8. get: 通过get方式获取线上文件，支持https及http协议
-9. post: 通过post方式获取线上文件，支持https及http协议
-10. request: 通过自定义方式获取线上文件，支持https及http协议
-11. json: 把文本转成json对象
-12. merge: 合并json对象
-13. random: 随机获取列表中的数据
-14. join: 同数组的join方法
-15. concat: 合并两个字符串
-16. req: 请求对象，包含：headers、method、body、query、locals(=merge(req.query, req.body))
-17. render: 指定渲染模板、数据、引擎类型渲染数据
+### req对象
+
+请求对象，包含：headers、method、body、query、locals(=merge(req.query, req.body))
+
+	out(req);
+	
+### render(tpl[, locals[, engineType]])
+
+渲染模板
+
+tpl：vase的模板名称或模板字符串
+
+locals：可选，用于渲染的json对象
+
+engineType：可选，渲染引擎名称，包含 [default](#default)、[doT](#dot)、[dust](#dust)、[doT](#dot)、[ejs](#ejs)、[jade](#jade)、[mock](#mock)、[mustache](#mustache)、[nunjucks](#nunjucks)、[swig](#mustache)、[vm](#vm)
+
+1. 如果tpl是字符串或数字，且vase里面有对应名称的模板，则会自动加载vase的模板内容
+
+		out(render('test-dust'), req.locals);
+		
+		//修改locals
+		out(render('test-dust', json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json'))));
+		
+		//切换engine
+		out(render('test-dust', json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json')), 'handlebars'));
+		
+2. 如果tpl是字符串或数字，且没有对应的vase模板，则这些字符串作为模板内容
+
+		out(render('Hello {{name}}', json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json')), 'handlebars'));
+		
+3. 渲染线上模板
+4. 渲染本地文件模板
+	
 
 
 # script使用例子
