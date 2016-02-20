@@ -151,6 +151,15 @@ speed: 设置输出的速度kbs
 通过get方式获取线上文件，支持https及http协议
 
 	out(get('https://www.taobao.com/'));
+	
+自定义头部
+
+	out(get({
+  		url: 'https://www.taobao.com/',
+  		headers: {
+    		'User-Agent': 'vase/x.y.z'
+  		}
+	}));
 
 1. out: 所有的数据都要通过该方法才能输出到响应中
 2. write: 同out
