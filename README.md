@@ -212,10 +212,41 @@ speed: 设置输出的速度kbs
 
 关于request的更多功能请参考：[https://github.com/request/request#requestoptions-callback](https://github.com/request/request#requestoptions-callback)
 
-### json
-将文本转换为json对象
+### json(data)
+1. 将文本转换为json对象
 
 	out(json('{"test": 123}'));
+	
+2. 从线上获取
+
+	out(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json'));
+	
+3. 从本地文件加载
+
+	out(file('/User/xxx/test.txt'));
+
+
+### merge(json, ..., jsonN)
+合并json
+
+	out(merge(json('{"test": 123}'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json')));
+	
+### random(arg1, ..., argN)
+数据获取参数列表中的一个
+
+	out(random(json('{"test": 123}'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json'), 'test', file('/User/xxx/test.html')));
+	
+### join(arr, seperator)
+与数组的`join`方法一样，拼接数组
+
+	out(join([json('{"test": 123}'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json'), 'test', file('/User/xxx/test.html')]));
+	
+如果使用默认的separator(`,`)，也可以写成这样
+
+	out(join(json('{"test": 123}'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json'), 'test', file('/User/xxx/test.html')));
+
+	
+
 
 1. out: 所有的数据都要通过该方法才能输出到响应中
 2. write: 同out
