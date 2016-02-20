@@ -237,11 +237,11 @@ speed: 设置输出的速度kbs
 	out(random(json('{"test": 123}'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json'), 'test', file('/User/xxx/test.html')));
 	
 ### join(arr, seperator)
-与数组的`join`方法一样，拼接数组
+与数组的`join`方法一样，拼接数组， `seperator`默认为`''`
 
 	out(join([json('{"test": 123}'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json')), 'test', file('/User/xxx/test.html')]));
 	
-如果使用默认的separator(`,`)，也可以写成这样 `join(arg1, ..., argN)`
+如果使用默认的separator(`''`)，也可以写成这样 `join(arg1, ..., argN)`
 
 	out(join(json('{"test": 123}'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json')), 'test', file('/User/xxx/test.html')));
 	
@@ -300,4 +300,14 @@ engineType：可选，渲染引擎名称，包含 [default](#default)、[doT](#d
 	} else {
 		out(req);
 	}
+
+### 模拟bigpipe
+
+
+### 在请求前后添加数据
+
+
+### 加载图片
+
+### 随机返回数据
 
