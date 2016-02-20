@@ -1,7 +1,7 @@
 {
   "name": "whistle.vase",
   "version": "0.0.1",
-  "description": "用于mock data的whistle插件",
+  "description": "用于mock数据的whistle插件",
   "main": "lib/index.js",
   "keywords": [
     "mockjs",
@@ -9,10 +9,10 @@
     "template",
     "stub"
   ],
-  "homepage": "https://github.com/avwo/vase",
+  "homepage": "https://github.com/whistle-plugins/whistle.vase",
   "repository": {
     "type": "git",
-    "url": "https://github.com/avwo/vase.git"
+    "url": "https://github.com/whistle-plugins/whistle.vase.git"
   },
   "author": "avenwu <avenwu@vip.qq.com>",
   "license": "MIT",
