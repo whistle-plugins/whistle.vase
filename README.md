@@ -140,19 +140,19 @@ speed: 设置输出的速度kbs
 		'x-test': 'abc'
 	}));
 	
-### file
+### file(path)
 读取本地文件
 
 	out(file('/User/xxx/test.html'));
 	//windows
 	//out(file('D:/xxx/test.html'));
 	
-### get
+### get(url|options)
 通过get方式获取线上文件，支持https及http协议
 
 	out(get('https://www.taobao.com/'));
 	
-自定义头部
+自定义请求头部
 
 	out(get({
   		url: 'https://www.taobao.com/',
@@ -160,6 +160,62 @@ speed: 设置输出的速度kbs
     		'User-Agent': 'vase/x.y.z'
   		}
 	}));
+	
+### post(url|options)
+通过post方式获取线上文件，支持https及http协议
+
+	//返回空
+	out(post('http://www.qq.com/'));
+	
+自定义请求头
+
+	out(get({
+  		url: 'https://www.taobao.com/',
+  		headers: {
+    		'User-Agent': 'vase/x.y.z'
+  		}
+	}));
+
+自定义表单数据
+
+	out(get({
+  		url: 'https://www.taobao.com/',
+  		headers: {
+    		'User-Agent': 'vase/x.y.z'
+  		}, 
+  		form: {key:'value'}
+	}));
+
+
+关于post的更多功能请参考：[https://github.com/request/request#forms](https://github.com/request/request#forms)
+
+### request(options)
+通过自定义方式获取线上文件，支持https及http协议
+	//返回空
+	out(request({
+  		url: 'http://www.qq.com/',
+  		method: 'post',
+  		headers: {
+    		'User-Agent': 'vase/x.y.z'
+  		}, 
+  		form: {key:'value'}
+	}));
+	
+	//返回qq官网首页
+	out(request({
+  		url: 'http://www.qq.com/',
+  		method: 'get',
+  		headers: {
+    		'User-Agent': 'vase/x.y.z'
+  		}
+	}));
+
+关于request的更多功能请参考：[https://github.com/request/request#requestoptions-callback](https://github.com/request/request#requestoptions-callback)
+
+### json
+将文本转换为json对象
+
+	out(json('{"test": 123}'));
 
 1. out: 所有的数据都要通过该方法才能输出到响应中
 2. write: 同out
