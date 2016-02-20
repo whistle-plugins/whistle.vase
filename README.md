@@ -290,17 +290,6 @@ engineType：可选，渲染引擎名称，包含 [default](#default)、[doT](#d
 
 # script使用例子
 
-### 转发GET请求
-
-	if (!req.method || /^get$/i.test(req.method)) {
-		out(get({
-			url: 'http' + (req.isHttps ? 's' : '') + '://' + req.headers.host + req.url,
-			headers: req.headers
-		}));
-	} else {
-		out(req);
-	}
-
 ### 模拟bigpipe
 
 
