@@ -95,6 +95,80 @@ vase插件内置[default](#default)、[doT](#dot)、[dust](#dust)、[doT](#dot)�
 模板渲染引擎，使用方法参考Github：[http://git.shepherdwind.com/velocity.js](http://git.shepherdwind.com/velocity.js)
 
 ### script
+script是vase系统自定义的脚本解析器，保留了JavaScript的一些基本特性，如：基本类型、条件语句、循环体、方法等，剔除了JavaScript内置的一些api，如：process、setTimeout、setInterval等，并内置了一些方法用于读取及处理vase的模板、本地文件、线上文件等，且所有调用都是同步的方式，具体用法参加下面的文档。
+
+
+# script API
+
+### out(data, delay, speed)
+所有的数据都要通过该方法才能输出到响应中.
+
+data: 表示要输出的数据或数据源
+
+1. 输出json对象
+
+		out({
+			test: 'hehe'
+		});
+	
+2. 输出文本数据
+
+		out('Hello world');
+
+3. 输出vase加载的资源，详见下面个API文档
+
+delay: 设置延迟多少毫秒输出
+
+speed: 设置输出的速度kbs
+
+### status(code)
+设置输出的http状态码，默认为`200`，也可以写成 `statusCode(code)`
+
+	out(status(500));
+	
+### header(name, value)
+设置响应头
+
+	out(header('content-type', 'text/plain; charset=utf8'));
+	out(header('x-test', 'abc'));
+
+#### headers(obj)
+设置响应头
+
+	out(headers({
+		'content-type': 'text/plain; charset=utf8',
+		'x-test': 'abc'
+	}));
+	
+### file
+读取本地文件
+
+	out(file('/User/xxx/test.html'));
+	//windows
+	//out(file('D:/xxx/test.html'));
+	
+### get
+通过get方式获取线上文件，支持https及http协议
+
+	out(get('https://www.taobao.com/'));
+
+1. out: 所有的数据都要通过该方法才能输出到响应中
+2. write: 同out
+3. status: 设置响应状态码
+4. statusCode: 同status
+5. header: 设置响应头部
+6. headers: 批量设置响应头部
+7. file: 读取本地文件
+8. get: 通过get方式获取线上文件，支持https及http协议
+9. post: 通过post方式获取线上文件，支持https及http协议
+10. request: 通过自定义方式获取线上文件，支持https及http协议
+11. json: 把文本转成json对象
+12. merge: 合并json对象
+13. random: 随机获取列表中的数据
+14. join: 同数组的join方法
+15. concat: 合并两个字符串
+16. req: 请求对象，包含：headers、method、body、query、locals(=merge(req.query, req.body))
+17. render: 指定渲染模板、数据、引擎类型渲染数据
 
 
 # script使用例子
