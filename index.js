@@ -1,2 +1,2 @@
-module.exports = require('vase');
+module.exports = require('../../oschina/vase');
 
