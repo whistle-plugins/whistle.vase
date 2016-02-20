@@ -1,0 +1,26 @@
+out(status(123123), 1000);
+out(header('content-type', 'text/html'));
+out(headers({a: ''}));
+out(join([file('/Users/aven/avenwu/workspace/github/vase/test/test-doT.js'), file('/Users/aven/avenwu/workspace/github/vase/test/test-dust.js')], '<br>'), 1000);
+out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-dust.js'), '<br>'), 1000);
+out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-ejs.js'), '<br>'), 1000);
+out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-engine.js'), '<br>'), 1000);
+out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-jade.js'), '<br>'), 1000);
+out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-mock.js'), '<br>'), 1000);
+out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-mustache.js'), '<br>'), 1000);
+out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-nunjucks.js'), '<br>'), 1000);
+out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-script.js'), '<br>'), 1000);
+out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-swig.js'), '<br>'), 1000);
+out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-velocity.js')), 1000);
+out(file('/Users/aven/avenwu/workspace/github/vase/test/test-dossT.js'), 1000);
+out('========================================================================================================');
+out(render('999999'), 1, 1);
+out('========================================================================================================');
+out(json('{"a": "b"e}', '{"c": "b"}', {e: 3}))
+out(random(1, 2, 3, 4, 5));
+out(get('https://www.taobao.com/'), 1000, 10);
+out(get('https://www.tmall.com/'), 2000, 20);
+out(get('http://nodeapi.ucdok.com/api/'), 3000, 30);
+out(random());
+out(render('999999'), 1, 1);
+//out(file('/Users/aven/avenwu/workspace/github/vase/lib/script-parser.js'));
