@@ -278,8 +278,14 @@ engineType：可选，渲染引擎名称，包含 [default](#default)、[doT](#d
 		out(render('Hello {{name}}', json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json')), 'handlebars'));
 		
 3. 渲染线上模板
+
+		out(render(get('http://www.qq.com/'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json')), 'handlebars'));
+
 4. 渲染本地文件模板
+
+		out(render(file('/User/xxx/test.txt'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json')), 'handlebars'));
 	
+
 
 
 # script使用例子
