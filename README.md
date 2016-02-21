@@ -310,4 +310,10 @@ engineType：可选，渲染引擎名称，包含 [default](#default)、[doT](#d
 #### 随机输出
 
 	out(random(render('test-default'), render('test-doT', {name: 'doT'}), render('test-dust', {name: 'dust'})));
+	
+### 结合上述两种情况
+
+	for (var i = 0; i < 10; i++) {
+		out(join(random(render('test-default'), render('test-doT', {name: 'doT'}), render('test-dust', {name: 'dust'})), '<br>'), 1000);
+	}
 
