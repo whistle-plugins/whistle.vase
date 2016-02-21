@@ -305,6 +305,8 @@ engineType：可选，渲染引擎名称，包含 [default](#default)、[doT](#d
 	out(join(render('test-swig', {name: 'swig'}), '<br>'), 1000);
 	out(render('test-vm', {name: 'vm'}));
 	
+`text-xxx`表示在vase上配置的模板
+	
 #### 随机输出
 
 	out(random(render('test-default'), render('test-doT', {name: 'doT'}), render('test-dust', {name: 'dust'})));
