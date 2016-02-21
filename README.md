@@ -102,6 +102,23 @@ script是vase系统自定义的脚本解析器，保留了JavaScript的一些基
 
 # script API
 
+1. [out](#outdata-delay-speed): 所有的数据都要通过该方法才能输出到响应中
+2. [status](): 设置输出的http状态码，默认为`200`，也可以写成 `statusCode(code)`
+3. [header](#headername-value): 设置响应头
+4. [headers](#statuscode): 批量设置响应头
+5. [file](#filepath): 读取本地文件
+6. [get](#geturloptions): 通过get方式获取线上文件，支持https及http协议
+7. [post](#posturloptions): 通过post方式获取线上文件，支持https及http协议
+8. [request](#requestoptions): 通过自定义方式获取线上文件，支持https及http协议
+9. [json](#jsondata): 将线上或本地文件、或字符串解析成json对象
+10. [merge](#mergejson--jsonn): 合并json对象
+11. [random](#randomarg1--argn): 随机输出
+12. [join](#joinarr-seperator): 合并字符串
+13. [req](#req对象): 用户请求对象
+14. [render](#rendertpl-locals-enginetype): 渲染模板
+
+详细用法请参考如下：
+
 ### out(data, delay, speed)
 所有的数据都要通过该方法才能输出到响应中.
 
