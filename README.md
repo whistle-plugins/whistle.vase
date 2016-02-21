@@ -73,6 +73,9 @@ vase插件内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)�
 ### ejs
 模板渲染引擎，使用方法参考Github：[https://github.com/mde/ejs](https://github.com/mde/ejs)
 
+### handlebars
+模板渲染引擎，使用方法参考Github：[https://github.com/wycats/handlebars.js](https://github.com/wycats/handlebars.js)
+
 ### jade
 模板渲染引擎，使用方法参考Github：[https://github.com/jadejs/jade](https://github.com/jadejs/jade)
 
@@ -81,9 +84,6 @@ vase插件内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)�
 
 ### mustache
 模板渲染引擎，使用方法参考Github：[https://github.com/janl/mustache.js](https://github.com/janl/mustache.js)
-
-### handlebars
-模板渲染引擎，使用方法参考Github：[https://github.com/wycats/handlebars.js](https://github.com/wycats/handlebars.js)
 
 ### nunjucks
 模板渲染引擎，使用方法参考Github：[https://github.com/mozilla/nunjucks](https://github.com/mozilla/nunjucks)
