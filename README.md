@@ -102,7 +102,7 @@ script是vase系统自定义的脚本解析器，保留了JavaScript的一些基
 
 # script API
 
-1. [out](#outdata-delay-speed): 所有的数据都要通过该方法才能输出到响应中
+1. [out](#outdata-delay-speed): 所有的数据都要通过该方法才能输出到响应中，也可以用 `write`
 2. [status](): 设置输出的http状态码，默认为`200`，也可以写成 `statusCode(code)`
 3. [header](#headername-value): 设置响应头
 4. [headers](#statuscode): 批量设置响应头
@@ -120,7 +120,7 @@ script是vase系统自定义的脚本解析器，保留了JavaScript的一些基
 详细用法请参考如下：
 
 ### out(data, delay, speed)
-所有的数据都要通过该方法才能输出到响应中.
+所有的数据都要通过该方法才能输出到响应中，也可以用 `write(data, delay, speed)`
 
 data: 表示要输出的数据或数据源
 
