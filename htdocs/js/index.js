@@ -273,7 +273,7 @@ var Index = React.createClass({
 						<a className="w-remove-menu" href="javascript:;" onClick={this.remove}><span className="glyphicon glyphicon-trash"></span>Delete</a>
 						<a className="w-save-menu" href="javascript:;" onClick={this.save}><span className="glyphicon glyphicon-save-file"></span>Save</a>
 						<a className="w-settings-menu" href="javascript:;" onClick={this.showTplSettingsDialog}><span className="glyphicon glyphicon-cog"></span>Settings</a>
-						<a className="w-help-menu" href="https://github.com/whistle-plugins/whistle.vase#whistle.vase" target="_blank"><span className="glyphicon glyphicon-question-sign"></span>Help</a>
+						<a className="w-help-menu" href="https://github.com/whistle-plugins/whistle.vase#whistlevase" target="_blank"><span className="glyphicon glyphicon-question-sign"></span>Help</a>
 						{engineName}
 					</div>
 					<List onActive={this.active} theme={theme} fontSize={fontSize} lineNumbers={showLineNumbers} onSelect={this.setValue}  modal={this.state.modal} className="w-data-list" />
@@ -290,7 +290,7 @@ var Index = React.createClass({
 					      	 			return (
 					      	 				<label key={name} data-name={name}><input type="radio" data-type={name} name="tplName" />{name}</label>
 					      	 			);
-					      	 		})}<a title="Help" className="glyphicon glyphicon-question-sign w-vase-help" href="https://github.com/whistle-plugins/whistle.vase#whistle.vase" target="_blank"></a>
+					      	 		})}<a title="Help" className="glyphicon glyphicon-question-sign w-vase-help" href="https://github.com/whistle-plugins/whistle.vase#whistlevase" target="_blank"></a>
 						      	 </li>
 						      </ul>
 						      <div className="modal-footer">
@@ -313,7 +313,7 @@ var Index = React.createClass({
 					      	 			return (
 					      	 				<label key={name} data-name={name}><input type="radio" data-type={name} name="tplName" />{name}</label>
 					      	 			);
-					      	 		})}<a title="Help" className="glyphicon glyphicon-question-sign w-vase-help" href="https://github.com/whistle-plugins/whistle.vase#whistle.vase" target="_blank"></a>
+					      	 		})}<a title="Help" className="glyphicon glyphicon-question-sign w-vase-help" href="https://github.com/whistle-plugins/whistle.vase#whistlevase" target="_blank"></a>
 						      	 </li>
 						      </ul>
 						      <div className="modal-footer">

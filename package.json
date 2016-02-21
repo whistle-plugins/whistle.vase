@@ -1,6 +1,6 @@
 {
   "name": "whistle.vase",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "用于mock数据的whistle插件",
   "main": "lib/index.js",
   "keywords": [
