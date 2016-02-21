@@ -292,11 +292,20 @@ engineType：可选，渲染引擎名称，包含 [default](#default)、[doT](#d
 
 ### 模拟bigpipe
 
+	out(join(render('test-doT', json(get('https://raw.githubusercontent.com/whistle-plugins/whistle.vase/master/package.json'))), '<br>'));
+	out(join(render('test-default'), '<br>'), 1000);
+	out(join(render('test-doT', {name: 'doT'}), '<br>'), 1000);
+	out(join(render('test-dust', {name: 'dust'}), '<br>'), 1000);
+	out(join(render('test-ejs', {name: 'ejs'}), '<br>'), 1000);
+	out(join(render('test-handlebars', {name: 'handlebars'}), '<br>'), 1000);
+	out(join(render('test-jade', {name: 'jade'}), '<br>'), 1000);
+	out(join(render('test-mock', {name: 'mock'}), '<br>'), 1000);
+	out(join(render('test-mustache', {name: 'mustache'}), '<br>'), 1000);
+	out(join(render('test-nunjucks', {name: 'nunjucks'}), '<br>'), 1000);
+	out(join(render('test-swig', {name: 'swig'}), '<br>'), 1000);
+	out(render('test-vm', {name: 'vm'}));
+	
+#### 随机输出
 
-### 在请求前后添加数据
-
-
-### 加载图片
-
-### 随机返回数据
+	out(random(render('test-default'), render('test-doT', {name: 'doT'}), render('test-dust', {name: 'dust'})));
 
