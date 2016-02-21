@@ -37,7 +37,7 @@ vase插件内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)�
 	
 	vase://test-dust /sina/ www.ifeng.com http://www.aliexpress.com/category/
 
-![Usage](https://raw.githubusercontent.com/whistle-plugins/whistle.vase/master/htdocs/img/create.png)
+![Usage](https://raw.githubusercontent.com/whistle-plugins/whistle.vase/master/htdocs/img/whistle.png)
 
 分别访问如下url：
 
