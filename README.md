@@ -59,6 +59,7 @@ vase插件内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)�
 	- 通过[script](#script)引擎修改响应头部，具体参考下面的：[script](#script)
 	
 3. 如果要更加灵活的获取数据源、控制输出，如：通过本地文件或线上url获取模板内容、渲染数据，控制速度，分段输出，设置响应头、响应状态码、响应内容编码等，可以使用下面的：[script](#script)
+4. 如果要用到https、websocket需要[启用HTTPS](https://github.com/avwo/whistle/wiki/%E5%90%AF%E7%94%A8HTTPS)
 
 
 # 模板引擎
