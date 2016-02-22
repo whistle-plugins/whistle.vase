@@ -97,7 +97,7 @@ vase插件内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)�
 模板渲染引擎，使用方法参考Github：[http://git.shepherdwind.com/velocity.js](http://git.shepherdwind.com/velocity.js)
 
 ### script
-script是vase系统自定义的脚本解析器，保留了JavaScript的一些基本特性，如：基本类型、条件语句、循环体、方法等，剔除了JavaScript内置的一些api，如：process、setTimeout、setInterval等，并内置了一些方法用于读取及处理vase的模板、本地文件、线上文件等，且所有调用都是同步的方式，具体用法参加下面的文档。
+[script](#script-api)是vase系统自定义的脚本解析器，保留了JavaScript的一些基本特性，如：基本类型、条件语句、循环体、方法等，剔除了JavaScript内置的一些api，如：process、setTimeout、setInterval等，并内置了一些方法用于读取及处理vase的模板、本地文件、线上文件等，且所有调用都是同步的方式，具体用法参加下面的文档。
 
 
 # script API
