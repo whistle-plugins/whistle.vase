@@ -236,7 +236,7 @@ speed: 设置输出的速度kbs
 
 	out(json('{"test": 123}'));
 	
-2. 从线上获取
+2. 从线上获取（支持jsonp请求）
 
 	out(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json'));
 	
