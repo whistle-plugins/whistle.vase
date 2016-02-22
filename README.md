@@ -16,7 +16,7 @@ vase插件内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)�
 
 	$ sudo npm install -g whistle.vase
 	
-**Note: 安装过程中的一些警告可以先忽略**
+**Note: 安装过程中的一些警告可以先忽略，如果要用到https、websocket需要[启用HTTPS](https://github.com/avwo/whistle/wiki/%E5%90%AF%E7%94%A8HTTPS)**
 	
 安装成功后打开whistle的UI界面的About对话框，即可看到当前whistle安装的所有插件：
 
