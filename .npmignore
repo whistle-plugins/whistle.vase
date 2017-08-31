@@ -1,7 +1,7 @@
 .DS_Store
 node_modules/
 test/
-htdocs/
+src/
 webpack.config.js
 .idea
 *.log
