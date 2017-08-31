@@ -3,7 +3,7 @@ var path = require('path');
 
 module.exports = {
 	entry : {
-		index : './htdocs/js/index'
+		index : './src/js/index'
 	},
 	output : {
 		path : './app/public/js',

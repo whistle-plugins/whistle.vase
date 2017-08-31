@@ -37,20 +37,22 @@
     "velocityjs": "^0.7.5",
     "ws": "^1.1.1"
   },
+  "scripts": {
+    "dev": "webpack -w"
+  },
   "engines": {
     "node": ">= 0.10.0"
   },
   "devDependencies": {
     "bootstrap": "^3.3.6",
     "clipboard": "^1.5.8",
-    "codemirror": "^5.11.0",
+    "codemirror": "5.11.0",
     "css-loader": "^0.23.1",
     "file-loader": "^0.8.5",
     "jquery": "^2.2.0",
     "jsx-loader": "^0.13.2",
-    "react": "^0.14.6",
-    "react-dom": "^0.14.7",
-    "reflux": "^0.3.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.12"
