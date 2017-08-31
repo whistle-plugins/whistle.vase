@@ -7,7 +7,6 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var List = require('./list');
 var ListModal = require('./list-modal');
-var MenuItem = require('./menu-item');
 var EditorSettings = require('./editor-settings');
 var util = require('./util');
 var dataCenter = require('./data-center');
@@ -269,7 +268,7 @@ var Index = React.createClass({
 		return (<div className="container orient-vertical-box">
 					<div className="w-menu">
 						<a className="w-create-menu" href="javascript:;" onClick={this.showCreateTplDialog}><span className="glyphicon glyphicon-plus"></span>Create</a>
-						<a className="w-edit-menu" href="javascript:;" onClick={this.showEditDialog}><span className="glyphicon glyphicon-edit"></span>Edit</a>
+						<a className="w-edit-menu" href="javascript:;" onClick={this.showEditDialog}><span className="glyphicon glyphicon-edit"></span>Rename</a>
 						<a className="w-remove-menu" href="javascript:;" onClick={this.remove}><span className="glyphicon glyphicon-trash"></span>Delete</a>
 						<a className="w-save-menu" href="javascript:;" onClick={this.save}><span className="glyphicon glyphicon-save-file"></span>Save</a>
 						<a className="w-settings-menu" href="javascript:;" onClick={this.showTplSettingsDialog}><span className="glyphicon glyphicon-cog"></span>Settings</a>
