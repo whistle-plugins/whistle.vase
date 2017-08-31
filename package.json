@@ -38,6 +38,8 @@
     "ws": "^1.1.1"
   },
   "scripts": {
+    "lint": "eslint ./lib *.js",
+    "lintfix": "eslint --fix ./lib *.js",
     "dev": "webpack -w"
   },
   "engines": {
@@ -48,6 +50,7 @@
     "clipboard": "^1.5.8",
     "codemirror": "5.11.0",
     "css-loader": "^0.23.1",
+    "eslint": "^2.13.1",
     "file-loader": "^0.8.5",
     "jquery": "^2.2.0",
     "jsx-loader": "^0.13.2",
