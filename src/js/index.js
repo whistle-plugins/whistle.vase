@@ -21,7 +21,7 @@ var Index = React.createClass({
 		var hasActive;
 		data.list.forEach(function(item) {
 			modal.list.push(item.name);
-			
+
 			var active = item.name == data.activeName;
 			if (active) {
 				hasActive = true;
@@ -33,11 +33,11 @@ var Index = React.createClass({
 					active: active
 			};
 		});
-		
+
 		if (!hasActive && (item = data.list[0])) {
 			modal.data[item.name].active = true;
 		}
-		
+
 		return {
 			modal: new ListModal(modal.list, modal.data),
 			engineList: data.engineList,
@@ -55,10 +55,10 @@ var Index = React.createClass({
 		if (self._creating || !self.isEnterPressed(e)) {
 			return;
 		}
-		
+
 		var dialog = $(ReactDOM.findDOMNode(this.refs.createTpl));
 		var input = dialog.find('.w-tpl-name');
-		
+
 		if (!self._checkTplName(input)) {
 			return;
 		}
@@ -104,7 +104,7 @@ var Index = React.createClass({
 				util.showSystemError();
 				return;
 			}
-			
+
 			modal.setChanged(item.name, false);
 			self.setState({});
 		});
@@ -132,7 +132,7 @@ var Index = React.createClass({
 		}
 		var dialog = $(ReactDOM.findDOMNode(this.refs.editTpl));
 		var input = dialog.find('.w-tpl-name');
-		
+
 		if (!self._checkTplName(input)) {
 			return;
 		}
@@ -142,7 +142,7 @@ var Index = React.createClass({
 			input.select().focus();
 			return;
 		}
-		
+
 		var typeBox = dialog.find('.w-template-type');
 		var type = typeBox.find('input:checked').attr('data-type') || 'default';
 		self._editing = true;
@@ -165,14 +165,14 @@ var Index = React.createClass({
 		});
 	},
 	isEnterPressed: function(e) {
-		
+
 		return e.type != 'keydown' || e.keyCode == 13;
 	},
 	convertName: function(name) {
 		if (!name) {
 			return '';
 		}
-		
+
 		return name.trim().replace(/[^\w.\-]+/g, '').substring(0, 64);
 	},
 	_checkTplName: function(input) {
@@ -181,13 +181,13 @@ var Index = React.createClass({
 		if (name != rawName) {
 			input.val(name);
 		}
-		
+
 		if (!name) {
 			alert('Name cannot be empty');
 			input.select().focus();
 			return false;
 		}
-		
+
 		return true;
 	},
 	_showTplDialog: function(dialog, data) {
@@ -215,7 +215,7 @@ var Index = React.createClass({
 		if (!data || !confirm('Confirm delete `' + data.name + '`?')) {
 			return;
 		}
-		
+
 		dataCenter.remove(data, function(result) {
 			if (!result || result.ec !== 0) {
 				util.showSystemError();
@@ -264,20 +264,26 @@ var Index = React.createClass({
 		if (activeItem) {
 			engineName = <span className="w-engine-name">Engine(<a href={'https://github.com/whistle-plugins/whistle.vase#' + activeItem.type.toLowerCase()} target="_blank">{activeItem.type}</a>)</span>;
 		}
-		
+
 		return (<div className="container orient-vertical-box">
-					<div className="w-menu">
-						<a className="w-create-menu" href="javascript:;" onClick={this.showCreateTplDialog}><span className="glyphicon glyphicon-plus"></span>Create</a>
-						<a className="w-edit-menu" href="javascript:;" onClick={this.showEditDialog}><span className="glyphicon glyphicon-edit"></span>Rename</a>
-						<a className="w-remove-menu" href="javascript:;" onClick={this.remove}><span className="glyphicon glyphicon-trash"></span>Delete</a>
-						<a className="w-save-menu" href="javascript:;" onClick={this.save}><span className="glyphicon glyphicon-save-file"></span>Save</a>
-						<a className="w-settings-menu" href="javascript:;" onClick={this.showTplSettingsDialog}><span className="glyphicon glyphicon-cog"></span>Settings</a>
+          <div className="w-menu">
+            <a onClick={this.importData} className="w-import-menu" href="javascript:;" draggable="false">
+              <span className="glyphicon glyphicon-import"></span>Import
+            </a>
+            <a onClick={this.exportData} className="w-export-menu" href="javascript:;" draggable="false">
+              <span className="glyphicon glyphicon-export"></span>Export
+            </a>
+						<a className="w-create-menu" href="javascript:;" onClick={this.showCreateTplDialog}><span className="glyphicon glyphicon-plus" draggable="false"></span>Create</a>
+						<a className="w-edit-menu" href="javascript:;" onClick={this.showEditDialog}><span className="glyphicon glyphicon-edit" draggable="false"></span>Rename</a>
+						<a className="w-remove-menu" href="javascript:;" onClick={this.remove}><span className="glyphicon glyphicon-trash" draggable="false"></span>Delete</a>
+						<a className="w-save-menu" href="javascript:;" onClick={this.save}><span className="glyphicon glyphicon-save-file" draggable="false"></span>Save</a>
+						<a className="w-settings-menu" href="javascript:;" onClick={this.showTplSettingsDialog}><span className="glyphicon glyphicon-cog" draggable="false"></span>Settings</a>
 						<a className="w-help-menu" href="https://github.com/whistle-plugins/whistle.vase#whistlevase" target="_blank"><span className="glyphicon glyphicon-question-sign"></span>Help</a>
 						{engineName}
 					</div>
 					<List onActive={this.active} theme={theme} fontSize={fontSize} lineNumbers={showLineNumbers} onSelect={this.setValue}  modal={this.state.modal} className="w-data-list" />
 					<div ref="createTpl" className="modal fade w-create-tpl">
-						<div className="modal-dialog"> 
+						<div className="modal-dialog">
 					  		<div className="modal-content">
 						      <ul className="modal-body">
 						      	 <li className="w-template-name">
@@ -300,7 +306,7 @@ var Index = React.createClass({
 					    </div>
 					</div>
 					<div ref="editTpl" className="modal fade w-create-tpl">
-						<div className="modal-dialog"> 
+						<div className="modal-dialog">
 					  		<div className="modal-content">
 						      <ul className="modal-body">
 						      	 <li className="w-template-name">
@@ -327,8 +333,8 @@ var Index = React.createClass({
 						  	<div className="modal-content">
 						      <div className="modal-body">
 						      	<EditorSettings theme={theme} fontSize={fontSize} lineNumbers={showLineNumbers}
-							      	onThemeChange={this.onThemeChange} 
-							      	onFontSizeChange={this.onFontSizeChange} 
+							      	onThemeChange={this.onThemeChange}
+							      	onFontSizeChange={this.onFontSizeChange}
 							      	onLineNumberChange={this.onLineNumberChange} />
 						      </div>
 						      <div className="modal-footer">
