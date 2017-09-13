@@ -38,8 +38,8 @@
     "ws": "^1.1.1"
   },
   "scripts": {
-    "lint": "eslint ./lib *.js",
-    "lintfix": "eslint --fix ./lib *.js",
+    "lint": "eslint ./lib ./app *.js",
+    "lintfix": "eslint --fix ./lib ./app *.js",
     "dev": "webpack -w"
   },
   "engines": {
