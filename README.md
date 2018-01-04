@@ -22,18 +22,18 @@ vase插件内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)�
 ### 配置界面
 按上图操作打开vase的配置界面，也可以直接访问: [http://vase.local.whistlejs.com/](http://vase.local.whistlejs.com/)
 
-![Usage](https://raw.githubusercontent.com/whistle-plugins/whistle.vase/master/htdocs/img/usage.png)
+![Usage](https://raw.githubusercontent.com/whistle-plugins/whistle.vase/master/src/img/usage.png)
 
 ### mock数据及获取数据
 按上图，创建一个名称为`test-dust`、引擎名称为`dust`的的模板，内容如下：
 
-![Usage](https://raw.githubusercontent.com/whistle-plugins/whistle.vase/master/htdocs/img/create.png)
+![Usage](https://raw.githubusercontent.com/whistle-plugins/whistle.vase/master/src/img/create.png)
 
 在whistle配置：
 	
 	vase://test-dust /sina/ www.ifeng.com http://www.aliexpress.com/category/
 
-![Usage](https://raw.githubusercontent.com/whistle-plugins/whistle.vase/master/htdocs/img/whistle.png)
+![Usage](https://raw.githubusercontent.com/whistle-plugins/whistle.vase/master/src/img/whistle.png)
 
 分别访问如下url：
 
