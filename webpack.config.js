@@ -1,5 +1,3 @@
-var webpack = require('webpack');
-
 module.exports = {
   entry : {
     index : './src/js/index'
@@ -20,10 +18,5 @@ module.exports = {
       test : /\.(png|woff|woff2|eot|ttf|svg)$/,
       loader : 'url-loader?limit=1000000'
     } ]
-  },
-  plugins : [new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false
-    }
-  })]
+  }
 };
