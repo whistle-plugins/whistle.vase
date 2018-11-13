@@ -12,7 +12,8 @@ var GET_CONF = $.extend({cache: false}, DEFAULT_CONF);
 
 module.exports = $.extend(createCgi({
 	init: 'cgi-bin/init',
-	getActive: 'cgi-bin/get-active'
+	getActive: 'cgi-bin/get-active',
+	exportData: 'cgi-bin/export'
 }, GET_CONF), createCgi({
 	setActive: 'cgi-bin/set-active',
 	remove: 'cgi-bin/remove',

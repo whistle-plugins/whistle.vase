@@ -316,7 +316,7 @@
 	            React.createElement("a", {onClick: this.importData, className: "w-import-menu", href: "javascript:;", draggable: "false"}, 
 	              React.createElement("span", {className: "glyphicon glyphicon-import"}), "Import"
 	            ), 
-	            React.createElement("a", {onClick: this.exportData, className: "w-export-menu", href: "javascript:;", draggable: "false"}, 
+	            React.createElement("a", {className: "w-export-menu", href: "cgi-bin/export", target: "_blank", draggable: "false"}, 
 	              React.createElement("span", {className: "glyphicon glyphicon-export"}), "Export"
 	            ), 
 							React.createElement("a", {className: "w-create-menu", href: "javascript:;", onClick: this.showCreateTplDialog}, React.createElement("span", {className: "glyphicon glyphicon-plus", draggable: "false"}), "Create"), 
@@ -51078,7 +51078,8 @@
 
 	module.exports = $.extend(createCgi({
 		init: 'cgi-bin/init',
-		getActive: 'cgi-bin/get-active'
+		getActive: 'cgi-bin/get-active',
+		exportData: 'cgi-bin/export'
 	}, GET_CONF), createCgi({
 		setActive: 'cgi-bin/set-active',
 		remove: 'cgi-bin/remove',

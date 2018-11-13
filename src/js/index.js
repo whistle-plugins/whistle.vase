@@ -270,7 +270,7 @@ var Index = React.createClass({
             <a onClick={this.importData} className="w-import-menu" href="javascript:;" draggable="false">
               <span className="glyphicon glyphicon-import"></span>Import
             </a>
-            <a onClick={this.exportData} className="w-export-menu" href="javascript:;" draggable="false">
+            <a className="w-export-menu" href="cgi-bin/export" target="_blank" draggable="false">
               <span className="glyphicon glyphicon-export"></span>Export
             </a>
 						<a className="w-create-menu" href="javascript:;" onClick={this.showCreateTplDialog}><span className="glyphicon glyphicon-plus" draggable="false"></span>Create</a>
