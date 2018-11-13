@@ -16,6 +16,9 @@ proto.update = function(list, data) {
 		var item = self.data[name] = data[name] || {};
 		item.name = name;
 	});
+	if (!self.getActive() && self.list.length) {
+		self.setActive(self.list[0]);
+	}
 };
 
 proto._getList = function(prop) {
