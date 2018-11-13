@@ -35828,6 +35828,7 @@
 	var ReactDOM = __webpack_require__(57);
 	var Divider = __webpack_require__(216);
 	var Editor = __webpack_require__(219);
+	var message = __webpack_require__(275);
 	var FilterInput = __webpack_require__(266);
 
 	function getSuffix(item) {
@@ -35884,7 +35885,13 @@
 			});
 			this.ensureVisible();
 			
-			new Clipboard('.copy-data-clipboard-text');
+			var clipboard = new Clipboard('.copy-data-clipboard-text');
+			clipboard.on('error', function(e) {
+	      message.error('Copy failed.');
+	    });
+	    clipboard.on('success', function(e) {
+	      message.success('Copied clipboard.');
+	    });
 		},
 		shouldComponentUpdate: function(nextProps) {
 			var hide = util.getBoolean(this.props.hide);
@@ -51209,6 +51216,80 @@
 	}
 
 	module.exports = create;
+
+/***/ }),
+/* 275 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var $ = __webpack_require__(17);
+	__webpack_require__(276);
+
+	var cache = {};
+
+	function showMessage(msg, level) {
+	  if (level === 'warn') {
+	    level = 'warning';
+	  } else if (level === 'error') {
+	    level = 'danger';
+	  }
+	  var elem = cache[level];
+	  if (!elem) {
+	    elem = $('<div class="alert alert-' + level + ' w-message"></div>');
+	    elem.appendTo(document.body);
+	    cache[level] = elem;
+	  }
+	  elem.text(msg);
+	  elem.stop(true, true).show();
+	  elem.css('marginLeft', -elem[0].offsetWidth / 2);
+	  elem.delay(2000).fadeOut(1600);
+	}
+
+	['error', 'warn', 'info', 'success'].forEach(function(level) {
+	  exports[level] = function(msg) {
+	    showMessage(msg, level);
+	  };
+	});
+
+
+/***/ }),
+/* 276 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(277);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(10)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!../../node_modules/css-loader/index.js!./message.css", function() {
+				var newContent = require("!!../../node_modules/css-loader/index.js!./message.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 277 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(4)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".w-message {\n  position: fixed;\n  top: 30px;\n  left: 50%;\n  z-index: 999999999;\n  padding: 8px 20px!important;\n  max-width: 410px;\n}\n", ""]);
+
+	// exports
+
 
 /***/ })
 /******/ ]);

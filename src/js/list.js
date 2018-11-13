@@ -7,6 +7,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Divider = require('./divider');
 var Editor = require('./editor');
+var message = require('./message');
 var FilterInput = require('./filter-input');
 
 function getSuffix(item) {
@@ -63,7 +64,13 @@ var List = React.createClass({
 		});
 		this.ensureVisible();
 		
-		new Clipboard('.copy-data-clipboard-text');
+		var clipboard = new Clipboard('.copy-data-clipboard-text');
+		clipboard.on('error', function(e) {
+      message.error('Copy failed.');
+    });
+    clipboard.on('success', function(e) {
+      message.success('Copied clipboard.');
+    });
 	},
 	shouldComponentUpdate: function(nextProps) {
 		var hide = util.getBoolean(this.props.hide);
