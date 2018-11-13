@@ -11,4 +11,4 @@ text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ell
 .w-list-data a .glyphicon:hover {color: #000;}
 .w-list-data .w-active .glyphicon {color: #ddd!important;}
 .w-list-data .w-active .glyphicon:hover {color: #fff!important;}
-.w-list-data .w-active .glyphicon.disabled {color: #999!important;}
+.w-list-data .w-active .glyphicon.disabled {color: #999!important; cursor: not-allowed;}
