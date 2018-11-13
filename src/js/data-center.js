@@ -16,6 +16,7 @@ module.exports = $.extend(createCgi({
 	exportData: 'cgi-bin/export'
 }, GET_CONF), createCgi({
 	setActive: 'cgi-bin/set-active',
+	importData: 'cgi-bin/import',
 	remove: 'cgi-bin/remove',
 	add: 'cgi-bin/add',
 	edit: 'cgi-bin/edit',

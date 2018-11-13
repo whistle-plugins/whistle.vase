@@ -11,6 +11,8 @@ var EditorSettings = require('./editor-settings');
 var util = require('./util');
 var dataCenter = require('./data-center');
 
+var MAX_FILE_SIZE = 1024 * 1024 * 5;
+
 var Index = React.createClass({
 	getInitialState: function() {
 		var data = this.props.data;
@@ -233,6 +235,57 @@ var Index = React.createClass({
 	showCreateTplDialog: function() {
 		this._showTplDialog($(ReactDOM.findDOMNode(this.refs.createTpl)));
 	},
+	uploadDataForm: function(data) {
+		var file = data.get('importData');
+    if (!file || !/\.(txt|json)$/i.test(file.name)) {
+      return alert('Only supports .txt, .json file.');
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+      return alert('The file size can not exceed 5m.');
+    }
+		var self = this;
+		var reader = new FileReader();
+		reader.readAsText(file);
+		reader.onload = function(){
+			try {
+				var result = JSON.parse(this.result);
+				dataCenter.importData({
+					list: JSON.stringify(result)
+				}, function(data) {
+					if (!data) {
+						return alert('Server internal error, try again later.');
+					}
+					var map = {};
+					var list = data.list.map(function(item) {
+						map[item.name] = item;
+						return item.name;
+					});
+					self.state.modal.update(list, map);
+					self.setState({});
+				});
+			} catch (e) {
+				alert('Incorrect file format.');
+			}
+		};
+	},
+	importData: function() {
+		this.uploadDataForm(new FormData(ReactDOM.findDOMNode(this.refs.importDataForm)));
+    ReactDOM.findDOMNode(this.refs.importData).value = '';
+	},
+	clickImport: function() {
+		ReactDOM.findDOMNode(this.refs.importData).click();
+	},
+	onDrop: function(e) {
+		var files = e.dataTransfer && e.dataTransfer.files;
+		if (!files || !files.length) {
+			return;
+		}
+		var data = new FormData();
+		data.append('importData', files[0]);
+		this.uploadDataForm(data);
+		e.preventDefault();
+	},
 	onThemeChange: function(e) {
 		var theme = e.target.value;
 		dataCenter.setTheme({theme: theme});
@@ -267,7 +320,7 @@ var Index = React.createClass({
 
 		return (<div className="container orient-vertical-box">
           <div className="w-menu">
-            <a onClick={this.importData} className="w-import-menu" href="javascript:;" draggable="false">
+            <a onClick={this.clickImport} className="w-import-menu" href="javascript:;" draggable="false">
               <span className="glyphicon glyphicon-import"></span>Import
             </a>
             <a className="w-export-menu" href="cgi-bin/export" target="_blank" draggable="false">
@@ -281,7 +334,8 @@ var Index = React.createClass({
 						<a className="w-help-menu" href="https://github.com/whistle-plugins/whistle.vase#whistlevase" target="_blank"><span className="glyphicon glyphicon-question-sign"></span>Help</a>
 						{engineName}
 					</div>
-					<List onActive={this.active} theme={theme} fontSize={fontSize} lineNumbers={showLineNumbers} onSelect={this.setValue}  modal={this.state.modal} className="w-data-list" />
+					<List onActive={this.active} onDrop={this.onDrop}
+						theme={theme} fontSize={fontSize} lineNumbers={showLineNumbers} onSelect={this.setValue}  modal={this.state.modal} className="w-data-list" />
 					<div ref="createTpl" className="modal fade w-create-tpl">
 						<div className="modal-dialog">
 					  		<div className="modal-content">
@@ -343,6 +397,9 @@ var Index = React.createClass({
 						    </div>
 						</div>
 					</div>
+					<form ref="importDataForm" encType="multipart/form-data" style={{display: 'none'}}>
+						<input ref="importData" onChange={this.importData} type="file" name="importData" accept=".txt,.json" />
+					</form>
 				</div>);
 	}
 });

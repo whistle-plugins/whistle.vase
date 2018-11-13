@@ -116,8 +116,8 @@ var List = React.createClass({
 		this.props.modal.search(keyword, this.props.name != 'rules');
 		this.setState({filterText: keyword});
 	},
-	getItemByKey: function(key) {
-		return this.props.modal.getByKey(key);
+	preventDefault: function(e) {
+		e.preventDefault();
 	},
 	render: function() {
 		var self = this;
@@ -129,12 +129,12 @@ var List = React.createClass({
 		return (
 				<Divider hide={this.props.hide} leftWidth="200">
 				<div className="fill orient-vertical-box w-list-left">	
-					<div ref="list" tabIndex="0" className={'fill orient-vertical-box w-list-data ' + (this.props.className || '')}>
+					<div ref="list" tabIndex="0"  onDrop={this.props.onDrop} onDragOver={this.preventDefault}
+						className={'fill orient-vertical-box w-list-data ' + (this.props.className || '')}>
 							{
 								list.map(function(name) {
 									var item = data[name];
-									
-									return <a ref={name} title={item.type} style={{display: item.hide ? 'none' : null}} key={item.key} data-key={item.key} href="javascript:;"
+									return <a ref={name} title={item.type} style={{display: item.hide ? 'none' : null}} key={name} href="javascript:;"
 												onClick={function() {
 													self.onClick(item);
 												}} 

@@ -2,18 +2,21 @@ var $ = require('jquery');
 var util = require('./util');
 
 function ListModal(list, data) {
+	this.update(list, data);
+}
+
+var proto = ListModal.prototype;
+
+proto.update = function(list, data) {
 	var self = this;
 	self.list = Array.isArray(list) ? list : [];
 	data = data || {};
 	self.data = {};
 	self.list.forEach(function(name) {
 		var item = self.data[name] = data[name] || {};
-		item.key = item.key || util.getKey();
 		item.name = name;
 	});
-}
-
-var proto = ListModal.prototype;
+};
 
 proto._getList = function(prop) {
 	var list = [];
@@ -47,7 +50,6 @@ proto.add = function(name, value) {
 	}
 	this.list.push(name);
 	var item = this.data[name] = {
-		key: util.getKey(),
 		name: name,
 		value: value || ''
 	};
@@ -69,15 +71,6 @@ proto.set = function(name, value) {
 proto.get = function(name) {
 	
 	return this.data[name];
-};
-
-proto.getByKey = function(key) {
-	for (var i in this.data) {
-		var item = this.data[i];
-		if (item.key == key) {
-			return item;
-		}
-	}
 };
 
 proto.setSelected = function(name, selected) {

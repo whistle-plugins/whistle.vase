@@ -57,6 +57,8 @@
 	var util = __webpack_require__(215);
 	var dataCenter = __webpack_require__(273);
 
+	var MAX_FILE_SIZE = 1024 * 1024 * 5;
+
 	var Index = React.createClass({displayName: "Index",
 		getInitialState: function() {
 			var data = this.props.data;
@@ -279,6 +281,57 @@
 		showCreateTplDialog: function() {
 			this._showTplDialog($(ReactDOM.findDOMNode(this.refs.createTpl)));
 		},
+		uploadDataForm: function(data) {
+			var file = data.get('importData');
+	    if (!file || !/\.(txt|json)$/i.test(file.name)) {
+	      return alert('Only supports .txt, .json file.');
+	    }
+
+	    if (file.size > MAX_FILE_SIZE) {
+	      return alert('The file size can not exceed 5m.');
+	    }
+			var self = this;
+			var reader = new FileReader();
+			reader.readAsText(file);
+			reader.onload = function(){
+				try {
+					var result = JSON.parse(this.result);
+					dataCenter.importData({
+						list: JSON.stringify(result)
+					}, function(data) {
+						if (!data) {
+							return alert('Server internal error, try again later.');
+						}
+						var map = {};
+						var list = data.list.map(function(item) {
+							map[item.name] = item;
+							return item.name;
+						});
+						self.state.modal.update(list, map);
+						self.setState({});
+					});
+				} catch (e) {
+					alert('Incorrect file format.');
+				}
+			};
+		},
+		importData: function() {
+			this.uploadDataForm(new FormData(ReactDOM.findDOMNode(this.refs.importDataForm)));
+	    ReactDOM.findDOMNode(this.refs.importData).value = '';
+		},
+		clickImport: function() {
+			ReactDOM.findDOMNode(this.refs.importData).click();
+		},
+		onDrop: function(e) {
+			var files = e.dataTransfer && e.dataTransfer.files;
+			if (!files || !files.length) {
+				return;
+			}
+			var data = new FormData();
+			data.append('importData', files[0]);
+			this.uploadDataForm(data);
+			e.preventDefault();
+		},
 		onThemeChange: function(e) {
 			var theme = e.target.value;
 			dataCenter.setTheme({theme: theme});
@@ -313,7 +366,7 @@
 
 			return (React.createElement("div", {className: "container orient-vertical-box"}, 
 	          React.createElement("div", {className: "w-menu"}, 
-	            React.createElement("a", {onClick: this.importData, className: "w-import-menu", href: "javascript:;", draggable: "false"}, 
+	            React.createElement("a", {onClick: this.clickImport, className: "w-import-menu", href: "javascript:;", draggable: "false"}, 
 	              React.createElement("span", {className: "glyphicon glyphicon-import"}), "Import"
 	            ), 
 	            React.createElement("a", {className: "w-export-menu", href: "cgi-bin/export", target: "_blank", draggable: "false"}, 
@@ -327,7 +380,8 @@
 							React.createElement("a", {className: "w-help-menu", href: "https://github.com/whistle-plugins/whistle.vase#whistlevase", target: "_blank"}, React.createElement("span", {className: "glyphicon glyphicon-question-sign"}), "Help"), 
 							engineName
 						), 
-						React.createElement(List, {onActive: this.active, theme: theme, fontSize: fontSize, lineNumbers: showLineNumbers, onSelect: this.setValue, modal: this.state.modal, className: "w-data-list"}), 
+						React.createElement(List, {onActive: this.active, onDrop: this.onDrop, 
+							theme: theme, fontSize: fontSize, lineNumbers: showLineNumbers, onSelect: this.setValue, modal: this.state.modal, className: "w-data-list"}), 
 						React.createElement("div", {ref: "createTpl", className: "modal fade w-create-tpl"}, 
 							React.createElement("div", {className: "modal-dialog"}, 
 						  		React.createElement("div", {className: "modal-content"}, 
@@ -388,6 +442,9 @@
 							      )
 							    )
 							)
+						), 
+						React.createElement("form", {ref: "importDataForm", encType: "multipart/form-data", style: {display: 'none'}}, 
+							React.createElement("input", {ref: "importData", onChange: this.importData, type: "file", name: "importData", accept: ".txt,.json"})
 						)
 					));
 		}
@@ -35880,8 +35937,8 @@
 			this.props.modal.search(keyword, this.props.name != 'rules');
 			this.setState({filterText: keyword});
 		},
-		getItemByKey: function(key) {
-			return this.props.modal.getByKey(key);
+		preventDefault: function(e) {
+			e.preventDefault();
 		},
 		render: function() {
 			var self = this;
@@ -35893,12 +35950,12 @@
 			return (
 					React.createElement(Divider, {hide: this.props.hide, leftWidth: "200"}, 
 					React.createElement("div", {className: "fill orient-vertical-box w-list-left"}, 	
-						React.createElement("div", {ref: "list", tabIndex: "0", className: 'fill orient-vertical-box w-list-data ' + (this.props.className || '')}, 
+						React.createElement("div", {ref: "list", tabIndex: "0", onDrop: this.props.onDrop, onDragOver: this.preventDefault, 
+							className: 'fill orient-vertical-box w-list-data ' + (this.props.className || '')}, 
 								
 									list.map(function(name) {
 										var item = data[name];
-										
-										return React.createElement("a", {ref: name, title: item.type, style: {display: item.hide ? 'none' : null}, key: item.key, "data-key": item.key, href: "javascript:;", 
+										return React.createElement("a", {ref: name, title: item.type, style: {display: item.hide ? 'none' : null}, key: name, href: "javascript:;", 
 													onClick: function() {
 														self.onClick(item);
 													}, 
@@ -50701,18 +50758,21 @@
 	var util = __webpack_require__(215);
 
 	function ListModal(list, data) {
+		this.update(list, data);
+	}
+
+	var proto = ListModal.prototype;
+
+	proto.update = function(list, data) {
 		var self = this;
 		self.list = Array.isArray(list) ? list : [];
 		data = data || {};
 		self.data = {};
 		self.list.forEach(function(name) {
 			var item = self.data[name] = data[name] || {};
-			item.key = item.key || util.getKey();
 			item.name = name;
 		});
-	}
-
-	var proto = ListModal.prototype;
+	};
 
 	proto._getList = function(prop) {
 		var list = [];
@@ -50746,7 +50806,6 @@
 		}
 		this.list.push(name);
 		var item = this.data[name] = {
-			key: util.getKey(),
 			name: name,
 			value: value || ''
 		};
@@ -50768,15 +50827,6 @@
 	proto.get = function(name) {
 		
 		return this.data[name];
-	};
-
-	proto.getByKey = function(key) {
-		for (var i in this.data) {
-			var item = this.data[i];
-			if (item.key == key) {
-				return item;
-			}
-		}
 	};
 
 	proto.setSelected = function(name, selected) {
@@ -51082,6 +51132,7 @@
 		exportData: 'cgi-bin/export'
 	}, GET_CONF), createCgi({
 		setActive: 'cgi-bin/set-active',
+		importData: 'cgi-bin/import',
 		remove: 'cgi-bin/remove',
 		add: 'cgi-bin/add',
 		edit: 'cgi-bin/edit',
