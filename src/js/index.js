@@ -48,10 +48,6 @@ var Index = React.createClass({
 			showLineNumbers: data.showLineNumbers
 		};
 	},
-	active: function(options) {
-		dataCenter.setActive({activeName: options.name});
-		this.setState({});
-	},
 	add: function(e) {
 		var self = this;
 		if (self._creating || !self.isEnterPressed(e)) {
@@ -365,7 +361,7 @@ var Index = React.createClass({
 						<a className="w-help-menu" href="https://github.com/whistle-plugins/whistle.vase#whistlevase" target="_blank"><span className="glyphicon glyphicon-question-sign"></span>Help</a>
 						{engineName}
 					</div>
-					<List onActive={this.active} onDrop={this.onDrop}
+					<List onDrop={this.onDrop}
 						theme={theme} fontSize={fontSize} lineNumbers={showLineNumbers} onSelect={this.setValue}  modal={this.state.modal} className="w-data-list" />
 					<div ref="createTpl" className="modal fade w-create-tpl">
 						<div className="modal-dialog">

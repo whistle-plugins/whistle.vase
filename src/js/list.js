@@ -9,6 +9,7 @@ var Divider = require('./divider');
 var Editor = require('./editor');
 var message = require('./message');
 var FilterInput = require('./filter-input');
+var storage = require('./storage');
 
 function getSuffix(item) {
 	if (!item || typeof item.name != 'string') {
@@ -86,12 +87,9 @@ var List = React.createClass({
 		}
 	},
 	onClick: function(item) {
-		var self = this;
-		if (typeof self.props.onActive != 'function' ||
-				self.props.onActive(item) !== false) {
-			self.props.modal.setActive(item.name);
-			self.setState({activeItem: item});
-		}
+		storage.set('activeName', item.name);
+		this.props.modal.setActive(item.name);
+		this.setState({activeItem: item});
 	},
 	onDoubleClick: function(item, okIcon) {
 		item.selected && !item.changed || okIcon ? this.onUnselect(item) : this.onSelect(item);

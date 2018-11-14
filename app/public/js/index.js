@@ -94,10 +94,6 @@
 				showLineNumbers: data.showLineNumbers
 			};
 		},
-		active: function(options) {
-			dataCenter.setActive({activeName: options.name});
-			this.setState({});
-		},
 		add: function(e) {
 			var self = this;
 			if (self._creating || !self.isEnterPressed(e)) {
@@ -411,7 +407,7 @@
 							React.createElement("a", {className: "w-help-menu", href: "https://github.com/whistle-plugins/whistle.vase#whistlevase", target: "_blank"}, React.createElement("span", {className: "glyphicon glyphicon-question-sign"}), "Help"), 
 							engineName
 						), 
-						React.createElement(List, {onActive: this.active, onDrop: this.onDrop, 
+						React.createElement(List, {onDrop: this.onDrop, 
 							theme: theme, fontSize: fontSize, lineNumbers: showLineNumbers, onSelect: this.setValue, modal: this.state.modal, className: "w-data-list"}), 
 						React.createElement("div", {ref: "createTpl", className: "modal fade w-create-tpl"}, 
 							React.createElement("div", {className: "modal-dialog"}, 
@@ -35861,6 +35857,7 @@
 	var Editor = __webpack_require__(219);
 	var message = __webpack_require__(275);
 	var FilterInput = __webpack_require__(266);
+	var storage = __webpack_require__(279);
 
 	function getSuffix(item) {
 		if (!item || typeof item.name != 'string') {
@@ -35938,12 +35935,9 @@
 			}
 		},
 		onClick: function(item) {
-			var self = this;
-			if (typeof self.props.onActive != 'function' ||
-					self.props.onActive(item) !== false) {
-				self.props.modal.setActive(item.name);
-				self.setState({activeItem: item});
-			}
+			storage.set('activeName', item.name);
+			this.props.modal.setActive(item.name);
+			this.setState({activeItem: item});
 		},
 		onDoubleClick: function(item, okIcon) {
 			item.selected && !item.changed || okIcon ? this.onUnselect(item) : this.onSelect(item);
@@ -50820,6 +50814,7 @@
 
 	var $ = __webpack_require__(17);
 	var util = __webpack_require__(215);
+	var storage = __webpack_require__(279);
 
 	function ListModal(list, data) {
 		this.update(list, data);
@@ -50836,9 +50831,11 @@
 			var item = self.data[name] = data[name] || {};
 			item.name = name;
 		});
-		if (!self.getActive() && self.list.length) {
-			self.setActive(self.list[0]);
+		var activeName = storage.get('activeName');
+		if (!activeName && self.list.length) {
+			activeName = self.list[0];
 		}
+		activeName && self.setActive(activeName);
 	};
 
 	proto._getList = function(prop) {
@@ -51198,7 +51195,6 @@
 		getActive: 'cgi-bin/get-active',
 		exportData: 'cgi-bin/export'
 	}, GET_CONF), createCgi({
-		setActive: 'cgi-bin/set-active',
 		importData: 'cgi-bin/import',
 		remove: 'cgi-bin/remove',
 		add: 'cgi-bin/add',
@@ -51383,6 +51379,39 @@
 	}
 
 	module.exports = evalJson;
+
+/***/ }),
+/* 279 */
+/***/ (function(module, exports) {
+
+	var PREFIX = location.href.replace(/[?#].*$/, '').replace(/\/index.html$/i, '/');
+	var cache = {};
+
+	function getKey(key) {
+	  return PREFIX + '?' + key;
+	}
+
+	exports.set = function(key, value) {
+	  key = getKey(key);
+	  if (value == null) {
+	    value = '';
+	  } else {
+	    value += '';
+	  }
+	  cache[key] = value;
+	  try {
+	    localStorage[key] = value;
+	  } catch(e) {}
+	};
+
+	exports.get = function(key, noCache) {
+	  key = getKey(key);
+	  try {
+	    return noCache ? localStorage[key] : (cache[key] || localStorage[key]);
+	  } catch(e) {}
+	  return cache[key];
+	};
+
 
 /***/ })
 /******/ ]);

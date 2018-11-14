@@ -1,5 +1,6 @@
 var $ = require('jquery');
 var util = require('./util');
+var storage = require('./storage');
 
 function ListModal(list, data) {
 	this.update(list, data);
@@ -16,9 +17,11 @@ proto.update = function(list, data) {
 		var item = self.data[name] = data[name] || {};
 		item.name = name;
 	});
-	if (!self.getActive() && self.list.length) {
-		self.setActive(self.list[0]);
+	var activeName = storage.get('activeName');
+	if (!activeName && self.list.length) {
+		activeName = self.list[0];
 	}
+	activeName && self.setActive(activeName);
 };
 
 proto._getList = function(prop) {
