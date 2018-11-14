@@ -1,0 +1,3 @@
+
+# 确保 pattern whistle.vase://xxx 的配置也可以转到server
+* vase://`${whistle.vase}`
