@@ -301,8 +301,20 @@
 
 	    if (file.size > MAX_FILE_SIZE) {
 	      return alert('The file size can not exceed 5m.');
-	    }
+			}
 			var self = this;
+			var modal = self.state.modal;
+			for (var i = 0, len = modal.list.length; i < len; ++i) {
+				var item = modal.data[modal.list[i]];
+				if (item && item.changed) {
+					if (!confirm('Importing data will lose the currently unsaved data.\nDo you want to continue?')) {
+						return;
+					}
+					break;
+				}
+			}
+
+
 			var reader = new FileReader();
 			reader.readAsText(file);
 			reader.onload = function(){
