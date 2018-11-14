@@ -55,6 +55,7 @@
 	var ListModal = __webpack_require__(269);
 	var EditorSettings = __webpack_require__(270);
 	var util = __webpack_require__(215);
+	var storage = __webpack_require__(279);
 	var dataCenter = __webpack_require__(273);
 
 	var MAX_FILE_SIZE = 1024 * 1024 * 5;
@@ -89,9 +90,9 @@
 			return {
 				modal: new ListModal(modal.list, modal.data),
 				engineList: data.engineList,
-				theme: data.theme,
-				fontSize: data.fontSize,
-				showLineNumbers: data.showLineNumbers
+				theme: storage.get('theme'),
+				fontSize: storage.get('fontSize'),
+				showLineNumbers: storage.get('showLineNumbers')
 			};
 		},
 		add: function(e) {
@@ -130,7 +131,6 @@
 				if (item) {
 					item.type = type;
 					modal.setActive(item.name);
-					self.active(item);
 				}
 				dialog.modal('hide');
 				self.setState({});
@@ -281,7 +281,6 @@
 				modal.remove(data.name);
 				if (next) {
 					modal.setActive(next.name, true);
-					self.active(next);
 				}
 				self.setState({});
 			});
@@ -360,21 +359,21 @@
 		},
 		onThemeChange: function(e) {
 			var theme = e.target.value;
-			dataCenter.setTheme({theme: theme});
+			storage.set('theme', theme);
 			this.setState({
 				theme: theme
 			});
 		},
 		onFontSizeChange: function(e) {
 			var fontSize = e.target.value;
-			dataCenter.setFontSize({fontSize: fontSize});
+			storage.set('fontSize', fontSize);
 			this.setState({
 				fontSize: fontSize
 			});
 		},
 		onLineNumberChange: function(e) {
 			var showLineNumbers = e.target.checked;
-			dataCenter.showLineNumbers({showLineNumbers: showLineNumbers ? 1 : 0});
+			storage.set('showLineNumbers', showLineNumbers);
 			this.setState({
 				showLineNumbers: showLineNumbers
 			});
@@ -51199,10 +51198,7 @@
 		remove: 'cgi-bin/remove',
 		add: 'cgi-bin/add',
 		edit: 'cgi-bin/edit',
-		setTheme: 'cgi-bin/set-theme',
 		setValue: 'cgi-bin/set-value',
-		setFontSize: 'cgi-bin/set-font-size',
-		showLineNumbers: 'cgi-bin/show-line-numbers'
 	}, POST_CONF));
 
 /***/ }),

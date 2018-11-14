@@ -9,6 +9,7 @@ var List = require('./list');
 var ListModal = require('./list-modal');
 var EditorSettings = require('./editor-settings');
 var util = require('./util');
+var storage = require('./storage');
 var dataCenter = require('./data-center');
 
 var MAX_FILE_SIZE = 1024 * 1024 * 5;
@@ -43,9 +44,9 @@ var Index = React.createClass({
 		return {
 			modal: new ListModal(modal.list, modal.data),
 			engineList: data.engineList,
-			theme: data.theme,
-			fontSize: data.fontSize,
-			showLineNumbers: data.showLineNumbers
+			theme: storage.get('theme'),
+			fontSize: storage.get('fontSize'),
+			showLineNumbers: storage.get('showLineNumbers')
 		};
 	},
 	add: function(e) {
@@ -84,7 +85,6 @@ var Index = React.createClass({
 			if (item) {
 				item.type = type;
 				modal.setActive(item.name);
-				self.active(item);
 			}
 			dialog.modal('hide');
 			self.setState({});
@@ -235,7 +235,6 @@ var Index = React.createClass({
 			modal.remove(data.name);
 			if (next) {
 				modal.setActive(next.name, true);
-				self.active(next);
 			}
 			self.setState({});
 		});
@@ -314,21 +313,21 @@ var Index = React.createClass({
 	},
 	onThemeChange: function(e) {
 		var theme = e.target.value;
-		dataCenter.setTheme({theme: theme});
+		storage.set('theme', theme);
 		this.setState({
 			theme: theme
 		});
 	},
 	onFontSizeChange: function(e) {
 		var fontSize = e.target.value;
-		dataCenter.setFontSize({fontSize: fontSize});
+		storage.set('fontSize', fontSize);
 		this.setState({
 			fontSize: fontSize
 		});
 	},
 	onLineNumberChange: function(e) {
 		var showLineNumbers = e.target.checked;
-		dataCenter.showLineNumbers({showLineNumbers: showLineNumbers ? 1 : 0});
+		storage.set('showLineNumbers', showLineNumbers);
 		this.setState({
 			showLineNumbers: showLineNumbers
 		});
