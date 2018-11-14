@@ -25,6 +25,12 @@ function parseRawJson(str, quite) {
 }
 
 exports.parseRawJson = parseRawJson;
+exports.isString = function(str, notEmpty) {
+	if (!str && notEmpty) {
+		return false;
+	}
+	return typeof str === 'string';
+};
 
 exports.preventDefault = function preventDefault(e) {
 	e.keyCode == 8 && e.preventDefault();

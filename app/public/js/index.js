@@ -308,8 +308,26 @@
 			reader.onload = function(){
 				try {
 					var result = JSON.parse(this.result);
+					if (!Array.isArray(result)) {
+						return;
+					}
+					var params;
+					result.forEach(function(item) {
+						if (item && util.isString(item.name, true)
+							&& util.isString(item.value) && util.isString(item.type, true)) {
+							params = params || [];
+							params.push({
+								name: item.name,
+								value: item.value,
+								type: item.type
+							});
+						}
+					});
+					if (!params) {
+						return alert('No data.');
+					}
 					dataCenter.importData({
-						list: JSON.stringify(result)
+						list: JSON.stringify(params)
 					}, function(data) {
 						if (!data) {
 							return alert('Server internal error, try again later.');
@@ -36923,6 +36941,12 @@
 	}
 
 	exports.parseRawJson = parseRawJson;
+	exports.isString = function(str, notEmpty) {
+		if (!str && notEmpty) {
+			return false;
+		}
+		return typeof str === 'string';
+	};
 
 	exports.preventDefault = function preventDefault(e) {
 		e.keyCode == 8 && e.preventDefault();
