@@ -120,7 +120,12 @@ var Index = React.createClass({
 		}
 		var data = util.parseRawJson(activeItem.value);
 		if (data) {
-			activeItem.value = JSON.stringify(data, null, '  ');
+			var value = JSON.stringify(data, null, '  ');
+			if (value === activeItem.value) {
+				return;
+			}
+			activeItem.value = value;
+			activeItem.changed = true;
 			this.setState({});
 		}
 	},
