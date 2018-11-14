@@ -162,6 +162,18 @@
 					.getChangedList()
 						.forEach(this.setValue);
 		},
+		format: function() {
+			var modal = this.state.modal;
+			var activeItem = modal.getActive();
+			if (!activeItem) {
+				return;
+			}
+			var data = util.parseRawJson(activeItem.value);
+			if (data) {
+				activeItem.value = JSON.stringify(data, null, '  ');
+				this.setState({});
+			}
+		},
 		showEditDialog: function() {
 			var activeItem = this.state.modal.getActive();
 			if (activeItem) {
@@ -376,6 +388,7 @@
 							React.createElement("a", {className: "w-edit-menu", href: "javascript:;", onClick: this.showEditDialog}, React.createElement("span", {className: "glyphicon glyphicon-edit", draggable: "false"}), "Rename"), 
 							React.createElement("a", {className: "w-remove-menu", href: "javascript:;", onClick: this.remove}, React.createElement("span", {className: "glyphicon glyphicon-trash", draggable: "false"}), "Delete"), 
 							React.createElement("a", {className: "w-save-menu", href: "javascript:;", onClick: this.save}, React.createElement("span", {className: "glyphicon glyphicon-save-file", draggable: "false"}), "Save"), 
+							React.createElement("a", {className: "w-save-menu", href: "javascript:;", onClick: this.format}, React.createElement("span", {className: "glyphicon glyphicon-ok-sign", draggable: "false"}), "Format"), 
 							React.createElement("a", {className: "w-settings-menu", href: "javascript:;", onClick: this.showTplSettingsDialog}, React.createElement("span", {className: "glyphicon glyphicon-cog", draggable: "false"}), "Settings"), 
 							React.createElement("a", {className: "w-help-menu", href: "https://github.com/whistle-plugins/whistle.vase#whistlevase", target: "_blank"}, React.createElement("span", {className: "glyphicon glyphicon-question-sign"}), "Help"), 
 							engineName
@@ -36884,12 +36897,32 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	var $ = __webpack_require__(17);
+	var evalJson = __webpack_require__(278);
+	var message = __webpack_require__(275);
+
 	var dragCallbacks = {};
 	var dragTarget, dragOffset, dragCallback;
 
 	function noop() {}
 
 	exports.noop = noop;
+
+	function parseRawJson(str, quite) {
+	  try {
+	    var json = JSON.parse(str);
+	    if (json && typeof json === 'object') {
+	      return json;
+	    }
+	    !quite && message.error('Error: not a json object.');
+	  } catch (e) {
+	    if (json = evalJson(str)) {
+	      return json;
+	    }
+	    !quite && message.error('Error: ' + e.message);
+	  }
+	}
+
+	exports.parseRawJson = parseRawJson;
 
 	exports.preventDefault = function preventDefault(e) {
 		e.keyCode == 8 && e.preventDefault();
@@ -38021,7 +38054,7 @@
 
 
 	// module
-	exports.push([module.id, ".w-editor {}", ""]);
+	exports.push([module.id, ".CodeMirror pre {\n  font-family: consola!important;\n}", ""]);
 
 	// exports
 
@@ -51293,6 +51326,39 @@
 
 	// exports
 
+
+/***/ }),
+/* 278 */
+/***/ (function(module, exports) {
+
+	var JSON_RE = /^\s*(?:\{[\w\W]*\}|\[[\w\W]*\])\s*$/;
+	var ctx = {};
+	var throwError = {
+	  get: function() {
+	    throw new Error('undefined');
+	  }
+	};
+
+	if (Object.defineProperty) {
+	  Object.defineProperty(ctx, 'console', throwError);
+	  for (var i in window) {
+	    ctx[i] = undefined;
+	    Object.defineProperty(ctx, i, throwError);
+	  }
+	}
+
+	function evalJson(str) {
+	  if (!JSON_RE.test(str)) {
+	    return;
+	  }
+	  with(ctx) {
+	    try {
+	      return eval('(' + str + ')');
+	    } catch(e) {}
+	  }
+	}
+
+	module.exports = evalJson;
 
 /***/ })
 /******/ ]);

@@ -1,10 +1,30 @@
 var $ = require('jquery');
+var evalJson = require('./eval');
+var message = require('./message');
+
 var dragCallbacks = {};
 var dragTarget, dragOffset, dragCallback;
 
 function noop() {}
 
 exports.noop = noop;
+
+function parseRawJson(str, quite) {
+  try {
+    var json = JSON.parse(str);
+    if (json && typeof json === 'object') {
+      return json;
+    }
+    !quite && message.error('Error: not a json object.');
+  } catch (e) {
+    if (json = evalJson(str)) {
+      return json;
+    }
+    !quite && message.error('Error: ' + e.message);
+  }
+}
+
+exports.parseRawJson = parseRawJson;
 
 exports.preventDefault = function preventDefault(e) {
 	e.keyCode == 8 && e.preventDefault();

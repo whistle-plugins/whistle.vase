@@ -116,6 +116,18 @@ var Index = React.createClass({
 				.getChangedList()
 					.forEach(this.setValue);
 	},
+	format: function() {
+		var modal = this.state.modal;
+		var activeItem = modal.getActive();
+		if (!activeItem) {
+			return;
+		}
+		var data = util.parseRawJson(activeItem.value);
+		if (data) {
+			activeItem.value = JSON.stringify(data, null, '  ');
+			this.setState({});
+		}
+	},
 	showEditDialog: function() {
 		var activeItem = this.state.modal.getActive();
 		if (activeItem) {
@@ -330,6 +342,7 @@ var Index = React.createClass({
 						<a className="w-edit-menu" href="javascript:;" onClick={this.showEditDialog}><span className="glyphicon glyphicon-edit" draggable="false"></span>Rename</a>
 						<a className="w-remove-menu" href="javascript:;" onClick={this.remove}><span className="glyphicon glyphicon-trash" draggable="false"></span>Delete</a>
 						<a className="w-save-menu" href="javascript:;" onClick={this.save}><span className="glyphicon glyphicon-save-file" draggable="false"></span>Save</a>
+						<a className="w-save-menu" href="javascript:;" onClick={this.format}><span className="glyphicon glyphicon-ok-sign" draggable="false"></span>Format</a>
 						<a className="w-settings-menu" href="javascript:;" onClick={this.showTplSettingsDialog}><span className="glyphicon glyphicon-cog" draggable="false"></span>Settings</a>
 						<a className="w-help-menu" href="https://github.com/whistle-plugins/whistle.vase#whistlevase" target="_blank"><span className="glyphicon glyphicon-question-sign"></span>Help</a>
 						{engineName}

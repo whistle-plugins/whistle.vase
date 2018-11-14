@@ -1,1 +1,3 @@
-.w-editor {}
+.CodeMirror pre {
+  font-family: consola!important;
+}
