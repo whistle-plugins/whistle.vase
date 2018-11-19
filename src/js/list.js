@@ -15,14 +15,14 @@ function getSuffix(item) {
 	if (!item || typeof item.name != 'string') {
 		return '';
 	}
-	
+
 	switch(item.type) {
 		case 'default':
 			var name = item.name;
 			var index = name.lastIndexOf('.');
 			return index == -1 ? '' : name.substring(index + 1);
 		case 'script':
-			return 'js';
+			return 'script';
 		case 'jade':
 			return 'jade';
 		default:
@@ -41,7 +41,7 @@ var List = React.createClass({
 				return false;
 			}
 		});
-		
+
 		function trigger(item) {
 			self.onDoubleClick(item);
 		}
@@ -53,7 +53,7 @@ var List = React.createClass({
 			} else if (e.keyCode == 40) {//down
 				item = modal.next();
 			}
-			
+
 			if (item) {
 				self.onClick(item);
 				e.preventDefault();
@@ -64,7 +64,7 @@ var List = React.createClass({
 			$(this).addClass('disabled');
 		});
 		this.ensureVisible();
-		
+
 		var clipboard = new Clipboard('.copy-data-clipboard-text');
 		clipboard.on('error', function(e) {
       message.error('Copy failed.');
@@ -133,7 +133,7 @@ var List = React.createClass({
 		//不设置height为0，滚动会有问题
 		return (
 				<Divider hide={this.props.hide} leftWidth="200">
-				<div className="fill orient-vertical-box w-list-left">	
+				<div className="fill orient-vertical-box w-list-left">
 					<div ref="list" tabIndex="0"  onDrop={this.props.onDrop} onDragOver={this.preventDefault}
 						className={'fill orient-vertical-box w-list-data ' + (this.props.className || '')}>
 							{
@@ -142,15 +142,15 @@ var List = React.createClass({
 									return <a ref={name} title={item.type} style={{display: item.hide ? 'none' : null}} key={name} href="javascript:;"
 												onClick={function() {
 													self.onClick(item);
-												}} 
+												}}
 												onDoubleClick={function() {
 													self.onDoubleClick(item);
-												}} 
+												}}
 												className={util.getClasses({
 													'w-active': item.active,
 													'w-changed': item.changed,
 													'w-selected': item.selected
-												})} 
+												})}
 												href="javascript:;">
 														{name}
 														<span title="Copy" className="glyphicon glyphicon-copy copy-data-clipboard-text" data-clipboard-action="copy" data-clipboard-text={name}></span>
@@ -160,7 +160,7 @@ var List = React.createClass({
 						</div>
 						<FilterInput onChange={this.onFilterChange} />
 					</div>
-					<Editor {...self.props} onChange={self.onChange} readOnly={!activeItem} value={activeItem ? activeItem.value : ''} 
+					<Editor {...self.props} onChange={self.onChange} readOnly={!activeItem} value={activeItem ? activeItem.value : ''}
 					mode={getSuffix(activeItem)} />
 				</Divider>
 		);

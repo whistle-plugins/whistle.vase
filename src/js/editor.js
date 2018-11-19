@@ -16,6 +16,7 @@ require('codemirror/theme/vibrant-ink.css');
 require('codemirror/theme/solarized.css');
 require('codemirror/theme/twilight.css');
 require('codemirror/theme/midnight.css');
+require('codemirror/addon/hint/show-hint.css');
 require('../css/list.css');
 require('../css/editor.css');
 var $ = require('jquery');
@@ -28,6 +29,12 @@ var css = require('codemirror/mode/css/css');
 var xml = require('codemirror/mode/xml/xml');
 var htmlmixed = require('codemirror/mode/htmlmixed/htmlmixed');
 var markdown = require('codemirror/mode/markdown/markdown');
+
+require('codemirror/addon/hint/show-hint');
+require('codemirror/addon/hint/javascript-hint');
+require('./script-mode');
+var scriptHint = require('./script-hint');
+
 var themes = ['default', 'neat', 'elegant', 'erlang-dark', 'night', 'monokai', 'cobalt', 'eclipse'
               , 'rubyblue', 'lesser-dark', 'xq-dark', 'xq-light', 'ambiance'
               , 'blackboard', 'vibrant-ink', 'solarized dark', 'solarized light', 'twilight', 'midnight'];
@@ -42,15 +49,14 @@ var Editor = React.createClass({
 		if (/(javascript|css|jade|xml|markdown)/.test(mode)) {
 			mode = RegExp.$1;
 		} else if (/js/.test(mode)) {
-			mode = 'javascript';
-		} else if (/html?/.test(mode)) {
+      mode = 'javascript';
+    } else if (/html?/.test(mode)) {
 			mode = 'htmlmixed';
 		} else if (/md/.test(mode)) {
 			mode = 'markdown';
 		} else if (/jade/.test(mode)) {
 			mode = 'jade';
-		}
-		
+    }
 		this._mode = mode;
 		if (this._editor) {
 			this._editor.setOption('mode', mode);
@@ -90,17 +96,32 @@ var Editor = React.createClass({
 		if (this._editor) {
 			this._editor.setOption('readOnly', readOnly);
 		}
-	},
+  },
+  setAutoComplete: function(enable) {
+    var option = this.isScriptEditor() ? scriptHint.extraKeys : {};
+    if (this._editor) {
+      this._editor.setOption('extraKeys', option);
+    }
+  },
+  unsetExtraKeys: function() {
+    if(this._editor) {
+      this._editor.setOption('extraKeys', null);
+    }
+  },
+  isScriptEditor: function() {
+    return this._mode === 'script';
+  },
 	componentDidMount: function() {
 		var timeout;
 		var self = this;
 		var elem = ReactDOM.findDOMNode(self.refs.editor);
-		var editor = self._editor = CodeMirror(elem);
+    var editor = self._editor = CodeMirror(elem);
+
 		editor.on('change', function(e) {
 			if (typeof self.props.onChange == 'function' && editor.getValue() !== (self.props.value || '')) {
 				self.props.onChange.call(self, e);
 			}
-		});
+    });
 		self._init();
 		var codeMirrorElem = $(elem).find('.CodeMirror').addClass('fill');
 		resize();
@@ -126,13 +147,19 @@ var Editor = React.createClass({
 		this.setFontSize(this.props.fontSize);
 		this.setTheme(this.props.theme);
 		this.showLineNumber(this.props.lineNumbers || false);
-		this.setReadOnly(this.props.readOnly || false);
+    this.setReadOnly(this.props.readOnly || false);
+
+    if (this.isScriptEditor()){
+      this.setAutoComplete();
+    } else {
+      this.unsetExtraKeys();
+    }
 	},
 	componentDidUpdate: function() {
 		this._init();
 	},
 	render: function() {
-		
+
 		return (
 			<div tabIndex="0" ref="editor" className="fill orient-vertical-box w-list-content"></div>
 		);
