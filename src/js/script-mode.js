@@ -1,8 +1,8 @@
 var CodeMirror = require('codemirror');
-var props = 'req merge join out write render random header headers status statusCode json file get post reques'.split(' ');
+var props = 'req merge join out write render random header headers status statusCode json file get post request'.split(' ');
 // 'req req.method req.isHttps req.headers req.query req.body req.locals req.url';
 
-CodeMirror.defineMode('vase', function(config, parserConfig) {
+CodeMirror.defineMode('script', function(config, parserConfig) {
   require('codemirror/addon/mode/overlay');
 
   var vaseOverlay = {
@@ -31,5 +31,5 @@ CodeMirror.defineMode('vase', function(config, parserConfig) {
       return null;
     }
   };
-  return CodeMirror.overlayMode(CodeMirror.getMode(config, parserConfig.backdrop || 'text/javascript'), vaseOverlay);
+  return CodeMirror.overlayMode(CodeMirror.getMode(config, 'text/javascript'), vaseOverlay);
 });
