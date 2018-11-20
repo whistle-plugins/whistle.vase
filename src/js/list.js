@@ -24,7 +24,9 @@ function getSuffix(item) {
 		case 'script':
 			return 'script';
 		case 'jade':
-			return 'jade';
+      return 'jade';
+    case 'handlebars':
+			return 'handlebars';
 		default:
 			return 'html';
 	}
