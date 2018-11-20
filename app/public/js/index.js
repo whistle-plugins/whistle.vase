@@ -51749,8 +51749,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	var CodeMirror = __webpack_require__(262);
-	var props = 'req merge join out write render random header headers status statusCode json file get post request'.split(' ');
-	// 'req req.method req.isHttps req.headers req.query req.body req.locals req.url';
+	var builtins = __webpack_require__(277).builtins;
 
 	CodeMirror.defineMode('script', function(config, parserConfig) {
 	  __webpack_require__(276);
@@ -51774,8 +51773,7 @@
 	        str = str + ch;
 	        return true;
 	      });
-
-	      if (props.indexOf(str) !== -1) {
+	      if (builtins.indexOf(str) !== -1) {
 	        return 'built-in property';
 	      }
 	      return null;
@@ -51884,15 +51882,12 @@
 	__webpack_require__(276);
 
 	var reqProps = 'req.method req.isHttps req.headers req.query req.body req.locals req.url'.split(' ');
-	var bultins = 'req merge join out write render random header headers status statusCode json file get post request'
+	var builtins = 'merge join out write render random header headers status statusCode json file get post request req'
 	  .split(' ').concat(reqProps);
 
 	CodeMirror.registerHelper('hint', 'script', function(cm, options) {
-	  var javascriptHint = CodeMirror.hint.javascript;
-	  var inner = javascriptHint(cm) || {from: cm.getCursor(), to: cm.getCursor(), list: []};
 	  var cur = cm.getCursor();
 	  var token = cm.getTokenAt(cur);
-	  var additions = [];
 
 	  if (token.string === '.') {
 	    var end = cur.ch;
@@ -51905,19 +51900,23 @@
 	        break;
 	      }
 	    }
-	    var w = curLine.slice(start, end-1);
-	    if (w === 'req') {
-	      additions = reqProps.slice(0);
-	      inner.list = additions.concat(inner.list);
-	      inner.from.ch = inner.from.ch - 4;
-	      return inner;
+	    var word = curLine.slice(start, end-1);
+	    if (word === 'req') {
+	      return {
+	        list: reqProps.slice(0),
+	        from: CodeMirror.Pos(cur.line, start),
+	        to: cm.getCursor()
+	      };
 	    }
 	  }
-	  additions = bultins.filter(function(item){
+	  var list = builtins.filter(function(item){
 	    return item.indexOf(token.string) === 0;
 	  });
-	  inner.list = additions.concat(inner.list);
-	  return inner;
+	  return {
+	    list: list,
+	    from: CodeMirror.Pos(cur.line, token.start),
+	    to: cm.getCursor()
+	  };
 	});
 	CodeMirror.commands.autocomplete = function(cm) {
 	  cm.showHint({hint: CodeMirror.hint.script});
@@ -51948,6 +51947,8 @@
 	  });
 	  return extraKeys;
 	})();
+
+	exports.builtins = builtins;
 
 
 /***/ }),

@@ -1,6 +1,5 @@
 var CodeMirror = require('codemirror');
-var props = 'req merge join out write render random header headers status statusCode json file get post request'.split(' ');
-// 'req req.method req.isHttps req.headers req.query req.body req.locals req.url';
+var builtins = require('./script-hint').builtins;
 
 CodeMirror.defineMode('script', function(config, parserConfig) {
   require('codemirror/addon/mode/overlay');
@@ -24,8 +23,7 @@ CodeMirror.defineMode('script', function(config, parserConfig) {
         str = str + ch;
         return true;
       });
-
-      if (props.indexOf(str) !== -1) {
+      if (builtins.indexOf(str) !== -1) {
         return 'built-in property';
       }
       return null;
