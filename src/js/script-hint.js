@@ -55,7 +55,7 @@ function completeAfter(cm, pred) {
 
 exports.extraKeys = (function() {
   var extraKeys = {'Alt-/': 'autocomplete'};
-  var CHARS = [];
+  var CHARS = ['\'.\''];
   for (var a = 'a'.charCodeAt(), z = 'z'.charCodeAt(); a <= z; a++) {
     var ch = String.fromCharCode(a);
     CHARS.push('\'' + ch.toUpperCase() + '\'');
