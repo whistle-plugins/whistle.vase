@@ -51273,7 +51273,6 @@
 	  }
 
 	  function resolveAutoHints(cm, pos) {
-	    console.log(pos)
 	    var helpers = cm.getHelpers(pos, "hint"), words
 	    if (helpers.length) {
 	      var async = false, resolved
@@ -51422,11 +51421,9 @@
 	  }
 
 	  function javascriptHint(editor, options) {
-
-	    return  scriptHint(editor, javascriptKeywords,
+	    return scriptHint(editor, javascriptKeywords,
 	                      function (e, cur) {return e.getTokenAt(cur);},
 	                      options);
-
 	  };
 	  CodeMirror.registerHelper("hint", "javascript", javascriptHint);
 
@@ -51544,7 +51541,7 @@
 	      });
 
 	      if (props.indexOf(str) !== -1) {
-	        return 'built-in property';
+	        return 'built-in keyword';
 	      }
 	      return null;
 	    }
@@ -51705,7 +51702,7 @@
 
 	exports.extraKeys = (function() {
 	  var extraKeys = {'Alt-/': 'autocomplete'};
-	  var CHARS = [];
+	  var CHARS = ['\'.\''];
 	  for (var a = 'a'.charCodeAt(), z = 'z'.charCodeAt(); a <= z; a++) {
 	    var ch = String.fromCharCode(a);
 	    CHARS.push('\'' + ch.toUpperCase() + '\'');

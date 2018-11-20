@@ -26,7 +26,7 @@ CodeMirror.defineMode('script', function(config, parserConfig) {
       });
 
       if (props.indexOf(str) !== -1) {
-        return 'built-in property';
+        return 'built-in keyword';
       }
       return null;
     }
