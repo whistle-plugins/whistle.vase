@@ -20,7 +20,7 @@ vase插件内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)�
 
 # 用法
 ### 配置界面
-按上图操作打开vase的配置界面，也可以直接访问: [http://vase.local.whistlejs.com/](http://vase.local.whistlejs.com/)
+按上图操作打开vase的配置界面，也可以直接访问: [http://local.whistlejs.com/whistle.vase/](http://local.whistlejs.com/whistle.vase/)
 
 ![Usage](https://raw.githubusercontent.com/whistle-plugins/whistle.vase/master/src/img/usage.png)
 
