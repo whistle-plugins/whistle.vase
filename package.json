@@ -50,7 +50,7 @@
     "clipboard": "^1.5.8",
     "codemirror": "5.11.0",
     "css-loader": "^0.23.1",
-    "eslint": "^2.13.1",
+    "eslint": "^4.18.2",
     "file-loader": "^0.8.5",
     "jquery": "^3.3.1",
     "jsx-loader": "^0.13.2",
