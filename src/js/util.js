@@ -32,6 +32,16 @@ exports.isString = function(str, notEmpty) {
 	return typeof str === 'string';
 };
 
+exports.toString = function(str) {
+	if (typeof str !== 'string') {
+		try {
+			JSON.stringify(str, null, '  ');
+		} catch (e) {}
+		return '';
+	}
+	return str;
+};
+
 exports.preventDefault = function preventDefault(e) {
 	e.keyCode == 8 && e.preventDefault();
 };

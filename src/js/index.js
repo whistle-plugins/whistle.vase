@@ -279,17 +279,11 @@ var Index = React.createClass({
 				}
 				var params;
 				result.forEach(function(item) {
-          var value = item.value;
-          if (Object.prototype.toString.call(value) === '[object Object]') {
-            item.value = JSON.stringify(value);
-          }
-
-					if (item && util.isString(item.name, true)
-						&& util.isString(item.value) && util.isString(item.type, true)) {
+					if (item && util.isString(item.name, true) && util.isString(item.type, true)) {
 						params = params || [];
 						params.push({
 							name: item.name,
-							value: item.value,
+							value: util.toString(item.value),
 							type: item.type
 						});
 					}
