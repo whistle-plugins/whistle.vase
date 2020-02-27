@@ -273,12 +273,17 @@ var Index = React.createClass({
 		reader.readAsText(file);
 		reader.onload = function(){
 			try {
-				var result = JSON.parse(this.result);
+        var result = JSON.parse(this.result);
 				if (!Array.isArray(result)) {
 					return;
 				}
 				var params;
 				result.forEach(function(item) {
+          var value = item.value;
+          if (Object.prototype.toString.call(value) === '[object Object]') {
+            item.value = JSON.stringify(value);
+          }
+
 					if (item && util.isString(item.name, true)
 						&& util.isString(item.value) && util.isString(item.type, true)) {
 						params = params || [];
