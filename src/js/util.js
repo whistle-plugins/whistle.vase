@@ -35,7 +35,7 @@ exports.isString = function(str, notEmpty) {
 exports.toString = function(str) {
 	if (typeof str !== 'string') {
 		try {
-			JSON.stringify(str, null, '  ');
+			return JSON.stringify(str, null, '  ');
 		} catch (e) {}
 		return '';
 	}
