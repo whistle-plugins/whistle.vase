@@ -248,6 +248,11 @@ speed: 设置输出的速度kbs
 合并json
 
 	out(merge(json('{"test": 123}'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json')));
+
+深度合并(>= v1.3.1)：
+``` txt
+out(merge(true, json('{"test": 123}'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json')));
+```
 	
 ### random(arg1, ..., argN)
 数据获取参数列表中的一个
