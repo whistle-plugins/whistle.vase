@@ -49,7 +49,7 @@
   "devDependencies": {
     "bootstrap": "^3.3.6",
     "clipboard": "^1.5.8",
-    "codemirror": "5.11.0",
+    "codemirror": "5.58.2",
     "css-loader": "^0.23.1",
     "eslint": "^2.13.1",
     "file-loader": "^0.8.5",
