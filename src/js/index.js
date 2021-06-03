@@ -368,7 +368,7 @@ var Index = React.createClass({
               <span className="glyphicon glyphicon-export"></span>Export
             </a>
 						<a className="w-create-menu" href="javascript:;" onClick={this.showCreateTplDialog}><span className="glyphicon glyphicon-plus" draggable="false"></span>Create</a>
-						<a className="w-edit-menu" href="javascript:;" onClick={this.showEditDialog}><span className="glyphicon glyphicon-edit" draggable="false"></span>Rename</a>
+						<a className="w-edit-menu" href="javascript:;" onClick={this.showEditDialog}><span className="glyphicon glyphicon-edit" draggable="false"></span>Edit</a>
 						<a className="w-remove-menu" href="javascript:;" onClick={this.remove}><span className="glyphicon glyphicon-trash" draggable="false"></span>Delete</a>
 						<a className="w-save-menu" href="javascript:;" onClick={this.save}><span className="glyphicon glyphicon-save-file" draggable="false"></span>Save</a>
 						<a className="w-save-menu" href="javascript:;" onClick={this.format}><span className="glyphicon glyphicon-ok-sign" draggable="false"></span>Format</a>

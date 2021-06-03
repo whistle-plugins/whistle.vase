@@ -17,7 +17,7 @@
   "author": "avenwu <avenwu@vip.qq.com>",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.15.2",
+    "body-parser": "^1.19.0",
     "dot": "^1.0.3",
     "dustjs-helpers": "^1.7.3",
     "dustjs-linkedin": "^2.7.3",
