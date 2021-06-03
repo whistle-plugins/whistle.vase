@@ -1,5 +1,5 @@
 var fs  = require('fs');
-var fse = require('fs-extra');
+var fse = require('fs-extra2');
 var path = require('path');
 var RETRY_INTERVAL = 16000;
 
