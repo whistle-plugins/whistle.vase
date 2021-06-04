@@ -23,8 +23,6 @@ function getSuffix(item) {
 			return index == -1 ? '' : name.substring(index + 1);
 		case 'script':
 			return 'script';
-		case 'jade':
-      return 'jade';
     case 'handlebars':
 			return 'handlebars';
 		default:

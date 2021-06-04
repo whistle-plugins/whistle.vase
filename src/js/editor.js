@@ -24,7 +24,6 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var CodeMirror = require('codemirror');
 var javascript = require('codemirror/mode/javascript/javascript');
-var jade = require('codemirror/mode/jade/jade');
 var handlebars = require('codemirror/mode/handlebars/handlebars');
 
 var css = require('codemirror/mode/css/css');
@@ -48,7 +47,7 @@ var Editor = React.createClass({
 		return themes;
 	},
 	setMode: function(mode) {
-		if (/(javascript|css|jade|xml|markdown|handlebars)/.test(mode)) {
+		if (/(javascript|css|xml|markdown|handlebars)/.test(mode)) {
 			mode = RegExp.$1;
 		} else if (/js/.test(mode)) {
       mode = 'javascript';
@@ -56,9 +55,7 @@ var Editor = React.createClass({
 			mode = 'htmlmixed';
 		} else if (/md/.test(mode)) {
 			mode = 'markdown';
-		} else if (/jade/.test(mode)) {
-			mode = 'jade';
-    }
+		}
 		this._mode = mode;
 		if (this._editor) {
 			this._editor.setOption('mode', mode);

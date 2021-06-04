@@ -5,12 +5,10 @@ out(join([file('/Users/aven/avenwu/workspace/github/vase/test/test-doT.js'), fil
 out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-dust.js'), '<br>'), 1000);
 out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-ejs.js'), '<br>'), 1000);
 out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-engine.js'), '<br>'), 1000);
-out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-jade.js'), '<br>'), 1000);
 out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-mock.js'), '<br>'), 1000);
 out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-mustache.js'), '<br>'), 1000);
 out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-nunjucks.js'), '<br>'), 1000);
 out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-script.js'), '<br>'), 1000);
-out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-swig.js'), '<br>'), 1000);
 out(add(file('/Users/aven/avenwu/workspace/github/vase/test/test-velocity.js')), 1000);
 out(file('/Users/aven/avenwu/workspace/github/vase/test/test-dossT.js'), 1000);
 out('========================================================================================================');

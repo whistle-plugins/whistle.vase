@@ -1,7 +1,7 @@
 # whistle.vase 
 > `v1.3+` 版本支持通过本地文件加载模板 `pattern vase://tpl:AbsoluteLocalFilePath`，如：`www.test.com/path/to vase://mock:D:\test\demo.json` 或 `www.test.com/path/to vase://mock:/Users/av/test/demo.json`，方便把 mock 数据集成到项目文件里面，并通过 [w2 add](https://wproxy.org/whistle/cli.html) 自动配置项目的 mock 环境
 
-vase插件内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)、[handlebars](#handlebars)、[jade](#jade)、[mock](#mock)、[mustache](#mustache)、[nunjucks](#nunjucks)、[swig](#mustache)、[vm](#vm)及用于解析自定义脚本的[script](#script)等渲染引擎，通过该[whistle](https://github.com/avwo/whistle#whistle)插件，可以通过模板结合相应的引擎mock开发过程中需要的json、html、图片等数据，也可以通过[script](#script)来自定义脚本更加灵活的获取模板及数据，控制输出等（如果只是静态数据不需要借助模板引擎批量生成，直接利用[whistle](https://github.com/avwo/whistle)的 `file` 或 `xfile` 即可实现）。
+vase插件内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)、[handlebars](#handlebars)、[mock](#mock)、[mustache](#mustache)、[nunjucks](#nunjucks)、[vm](#vm)及用于解析自定义脚本的[script](#script)等渲染引擎，通过该[whistle](https://github.com/avwo/whistle#whistle)插件，可以通过模板结合相应的引擎mock开发过程中需要的json、html、图片等数据，也可以通过[script](#script)来自定义脚本更加灵活的获取模板及数据，控制输出等（如果只是静态数据不需要借助模板引擎批量生成，直接利用[whistle](https://github.com/avwo/whistle)的 `file` 或 `xfile` 即可实现）。
 
 # 安装
 ### 安装whistle
@@ -67,18 +67,11 @@ vase插件内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)�
 
 ### doT
 模板渲染引擎，使用方法参考Github：[https://github.com/olado/doT](https://github.com/olado/doT)
-
-### dust
-模板渲染引擎，使用方法参考Github：[https://github.com/linkedin/dustjs-helpers](https://github.com/linkedin/dustjs-helpers)
-
 ### ejs
 模板渲染引擎，使用方法参考Github：[https://github.com/mde/ejs](https://github.com/mde/ejs)
 
 ### handlebars
 模板渲染引擎，使用方法参考Github：[https://github.com/wycats/handlebars.js](https://github.com/wycats/handlebars.js)
-
-### jade
-模板渲染引擎，使用方法参考Github：[https://github.com/jadejs/jade](https://github.com/jadejs/jade)
 
 ### mock
 模板渲染引擎，使用方法参考Github：[https://github.com/nuysoft/Mock](https://github.com/nuysoft/Mock)
@@ -88,9 +81,6 @@ vase插件内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)�
 
 ### nunjucks
 模板渲染引擎，使用方法参考Github：[https://github.com/mozilla/nunjucks](https://github.com/mozilla/nunjucks)
-
-### swig
-模板渲染引擎，使用方法参考Github：[https://github.com/paularmstrong/swig](https://github.com/paularmstrong/swig)
 
 ### vm
 模板渲染引擎，使用方法参考Github：[http://git.shepherdwind.com/velocity.js](http://git.shepherdwind.com/velocity.js)
@@ -284,7 +274,7 @@ tpl：vase的模板名称或模板字符串
 
 locals：可选，用于渲染的json对象
 
-engineType：可选，渲染引擎名称，包含 [default](#default)、[doT](#dot)、[dust](#dust)、[doT](#dot)、[ejs](#ejs)、[jade](#jade)、[mock](#mock)、[mustache](#mustache)、[nunjucks](#nunjucks)、[swig](#mustache)、[vm](#vm)
+engineType：可选，渲染引擎名称，包含 [default](#default)、[doT](#dot)、[dust](#dust)、[doT](#dot)、[ejs](#ejs)、[mock](#mock)、[mustache](#mustache)、[nunjucks](#nunjucks)、[vm](#vm)
 
 1. 如果tpl是字符串或数字，且vase里面有对应名称的模板，则会自动加载vase的模板内容
 
@@ -321,11 +311,9 @@ engineType：可选，渲染引擎名称，包含 [default](#default)、[doT](#d
 	out(join(render('test-dust', {name: 'dust'}), '<br>'), 1000);
 	out(join(render('test-ejs', {name: 'ejs'}), '<br>'), 1000);
 	out(join(render('test-handlebars', {name: 'handlebars'}), '<br>'), 1000);
-	out(join(render('test-jade', {name: 'jade'}), '<br>'), 1000);
 	out(join(render('test-mock', {name: 'mock'}), '<br>'), 1000);
 	out(join(render('test-mustache', {name: 'mustache'}), '<br>'), 1000);
 	out(join(render('test-nunjucks', {name: 'nunjucks'}), '<br>'), 1000);
-	out(join(render('test-swig', {name: 'swig'}), '<br>'), 1000);
 	out(render('test-vm', {name: 'vm'}));
 	
 `text-xxx`表示在vase上配置的模板
