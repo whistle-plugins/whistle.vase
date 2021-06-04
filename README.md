@@ -191,11 +191,11 @@ speed: 设置输出的速度kbs
   		headers: {
     		'User-Agent': 'vase/x.y.z'
   		}, 
-  		form: {key:'value'}
+  		query: {key:'value'}
 	}));
 
 
-关于post的更多功能请参考：[https://github.com/request/request#forms](https://github.com/request/request#forms)
+关于post的更多功能请参考：[https://github.com/axios/axios#request-config](https://github.com/axios/axios#request-config)
 
 ### request(options)
 通过自定义方式获取线上文件，支持https及http协议
@@ -206,7 +206,7 @@ speed: 设置输出的速度kbs
   		headers: {
     		'User-Agent': 'vase/x.y.z'
   		}, 
-  		form: {key:'value'}
+  		params: {key:'value'}
 	}));
 	
 	//返回qq官网首页
@@ -218,7 +218,7 @@ speed: 设置输出的速度kbs
   		}
 	}));
 
-关于request的更多功能请参考：[https://github.com/request/request#requestoptions-callback](https://github.com/request/request#requestoptions-callback)
+关于request的更多功能请参考：[https://github.com/axios/axios#request-config](https://github.com/axios/axios#request-config)
 
 ### json(data)
 1. 将文本转换为json对象
