@@ -1,5 +1,4 @@
 var $ = require('jquery');
-var util = require('./util');
 var storage = require('./storage');
 
 function ListModal(list, data) {
