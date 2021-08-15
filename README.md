@@ -1,5 +1,5 @@
 # whistle.vase 
-> `v1.3+` 版本支持通过本地文件加载模板 `pattern vase://tpl:AbsoluteLocalFilePath`，如：`www.test.com/path/to vase://mock:D:\test\demo.json` 或 `www.test.com/path/to vase://mock:/Users/av/test/demo.json`，方便把 mock 数据集成到项目文件里面，并通过 [w2 add](https://wproxy.org/whistle/cli.html) 自动配置项目的 mock 环境
+> > [请将 Whistle 升级到最新版本](https://wproxy.org/whistle/update.html)
 
 vase插件内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)、[handlebars](#handlebars)、[mock](#mock)、[mustache](#mustache)、[nunjucks](#nunjucks)、[vm](#vm)及用于解析自定义脚本的[script](#script)等渲染引擎，通过该[whistle](https://github.com/avwo/whistle#whistle)插件，可以通过模板结合相应的引擎mock开发过程中需要的json、html、图片等数据，也可以通过[script](#script)来自定义脚本更加灵活的获取模板及数据，控制输出等（如果只是静态数据不需要借助模板引擎批量生成，直接利用[whistle](https://github.com/avwo/whistle)的 `file` 或 `xfile` 即可实现）。
 
@@ -30,6 +30,8 @@ vase插件内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)�
 按上图，创建一个名称为`test-dust`、引擎名称为`dust`的的模板，内容如下：
 
 ![Usage](https://raw.githubusercontent.com/whistle-plugins/whistle.vase/master/src/img/create.png)
+
+也支持通过本地文件加载模板 `pattern vase://tpl:AbsoluteLocalFilePath`，如：`www.test.com/path/to vase://mock:D:\test\demo.json` 或 `www.test.com/path/to vase://mock:/Users/av/test/demo.json`，方便把 mock 数据集成到项目文件里面，并通过 [w2 add](https://wproxy.org/whistle/cli.html) 自动配置项目的 mock 环境
 
 在whistle配置：
 	
