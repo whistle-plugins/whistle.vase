@@ -16,11 +16,12 @@ vase插件内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)�
 
 	$ sudo npm install -g whistle.vase
 	
-**Note: 安装过程中的一些警告可以先忽略，如果要用到https、websocket需要[启用HTTPS](https://github.com/avwo/whistle/wiki/%E5%90%AF%E7%94%A8HTTPS)**
+**Note: 安装过程中的一些警告可以先忽略，如果要用到https、websocket需要[启用HTTPS](https://wproxy.org/whistle/webui/https.html)**
 	
 安装成功后在[whistle](https://github.com/avwo/whistle#whistle)的Plugins里面可以看到 `vase` 这个插件，并处于选中状态。
 
 # 用法
+> websocket 请求比较特殊，请用 [whistle.script](https://github.com/whistle-plugins/whistle.script) 模拟请求响应
 ### 配置界面
 按上图操作打开vase的配置界面，也可以直接访问: [http://local.whistlejs.com/whistle.vase/](http://local.whistlejs.com/whistle.vase/)
 
@@ -59,7 +60,7 @@ vase插件内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)�
 	- 通过[script](#script)引擎修改响应头部，具体参考下面的：[script](#script)
 	
 3. 如果要更加灵活的获取数据源、控制输出，如：通过本地文件或线上url获取模板内容、渲染数据，控制速度，分段输出，设置响应头、响应状态码、响应内容编码等，可以使用下面的：[script](#script)
-4. 如果要用到https、websocket需要[启用HTTPS](https://github.com/avwo/whistle/wiki/%E5%90%AF%E7%94%A8HTTPS)
+4. 如果要用到https、websocket需要[启用HTTPS](https://wproxy.org/whistle/webui/https.html)
 
 
 # 模板引擎
