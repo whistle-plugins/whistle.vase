@@ -10,11 +10,7 @@ vase插件内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)�
 ### 安装插件whistle.vase
 安装启动[whistle](https://github.com/avwo/whistle#whistle)后，直接通过npm来安装whistle插件：
 
-	$ npm install -g whistle.vase
-
-如果是mac或linux系统，可能需要加sudo
-
-	$ sudo npm install -g whistle.vase
+	$ w2 install whistle.vase
 	
 **Note: 安装过程中的一些警告可以先忽略，如果要用到https、websocket需要[启用HTTPS](https://wproxy.org/whistle/webui/https.html)**
 	
