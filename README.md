@@ -11,7 +11,7 @@ vase 内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)、[ha
 安装启动[whistle](https://github.com/avwo/whistle#whistle)后，直接通过npm来安装whistle插件：
 
 	$ w2 install whistle.vase
-	
+
 **Note: 安装过程中的一些警告可以先忽略，如果要用到https、websocket需要[启用HTTPS](https://wproxy.org/whistle/webui/https.html)**
 	
 安装成功后在[whistle](https://github.com/avwo/whistle#whistle)的Plugins里面可以看到 `vase` 这个插件，并处于选中状态。
@@ -46,7 +46,7 @@ vase 内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)、[ha
 	1. Hello Aliexpress
 	2. Hello ifeng
 	3. Hello sina
-	
+
 ### 几点说明
 1. 引擎用到的渲染数据默认先从接口提交的body中获取，如果没有对应的字段才从url的参数获取，如果要自定义数据可以通过vase的内置[script](#script)引擎来实现，具体参考下面的：[script](#script)
 2. vase返回的数据的`content-type`默认都是 `text/html`，如果要修改`content-type`可以使用以下两种方式：
@@ -90,19 +90,20 @@ vase 内置[default](#default)、[doT](#dot)、[dust](#dust)、[ejs](#ejs)、[ha
 # script API
 
 1. [out](#outdata-delay-speed): 所有的数据都要通过该方法才能输出到响应中，也可以用 `write`
-2. [status](): 设置输出的http状态码，默认为`200`，也可以写成 `statusCode(code)`
+2. [status](#statuscode): 设置输出的http状态码，默认为`200`，也可以写成 `statusCode(code)`
 3. [header](#headername-value): 设置响应头
-4. [headers](#statuscode): 批量设置响应头
-5. [file](#filepath): 读取本地文件
-6. [get](#geturloptions): 通过get方式获取线上文件，支持https及http协议
-7. [post](#posturloptions): 通过post方式获取线上文件，支持https及http协议
-8. [request](#requestoptions): 通过自定义方式获取线上文件，支持https及http协议
-9. [json](#jsondata): 将线上或本地文件、或字符串解析成json对象
-10. [merge](#mergejson--jsonn): 合并json对象
-11. [random](#randomarg1--argn): 随机输出
-12. [join](#joinarr-seperator): 合并字符串
-13. [req](#req对象): 用户请求对象
-14. [render](#rendertpl-locals-enginetype): 渲染模板
+4. [headers](#headersobj): 批量设置响应头
+5. [type](#typename): 快捷设置响应头 `content-type`
+6. [file](#filepath): 读取本地文件
+7. [get](#geturloptions): 通过get方式获取线上文件，支持https及http协议
+8. [post](#posturloptions): 通过post方式获取线上文件，支持https及http协议
+9. [request](#requestoptions): 通过自定义方式获取线上文件，支持https及http协议
+10. [json](#jsondata): 将线上或本地文件、或字符串解析成json对象
+11. [merge](#mergejson--jsonn): 合并json对象
+12. [random](#randomarg1--argn): 随机输出
+13. [join](#joinarr-seperator): 合并字符串
+14. [req](#req对象): 用户请求对象
+15. [render](#rendertpl-locals-enginetype): 渲染模板
 
 详细用法请参考如下：
 
@@ -131,7 +132,7 @@ speed: 设置输出的速度kbs
 设置输出的http状态码，默认为`200`，也可以写成 `statusCode(code)`
 
 	out(status(500));
-	
+
 ### header(name, value)
 设置响应头
 
@@ -145,51 +146,60 @@ speed: 设置输出的速度kbs
 		'content-type': 'text/plain; charset=utf8',
 		'x-test': 'abc'
 	}));
-	
+
+### type(name)
+设置响应头 `content-type`
+``` js
+out(type('sse'));
+out(type('js'));
+out(type('text/custom; charset=utf8'));
+out(type('txt; charset=utf8'));
+```
+
 ### file(path)
 读取本地文件
 
 	out(file('/User/xxx/test.html'));
 	//windows
 	//out(file('D:/xxx/test.html'));
-	
+
 ### get(url|options)
 通过get方式获取线上文件，支持https及http协议
 
 	out(get('https://www.taobao.com/'));
-	
+
 自定义请求头部
 
 	out(get({
-  		url: 'https://www.taobao.com/',
-  		headers: {
-    		'User-Agent': 'vase/x.y.z'
-  		}
+		url: 'https://www.taobao.com/',
+		headers: {
+			'User-Agent': 'vase/x.y.z'
+		}
 	}));
-	
+
 ### post(url|options)
 通过post方式获取线上文件，支持https及http协议
 
 	//返回空
 	out(post('http://www.qq.com/'));
-	
+
 自定义请求头
 
 	out(get({
-  		url: 'https://www.taobao.com/',
-  		headers: {
-    		'User-Agent': 'vase/x.y.z'
-  		}
+		url: 'https://www.taobao.com/',
+		headers: {
+			'User-Agent': 'vase/x.y.z'
+		}
 	}));
 
 自定义表单数据
 
 	out(get({
-  		url: 'https://www.taobao.com/',
-  		headers: {
-    		'User-Agent': 'vase/x.y.z'
-  		}, 
-  		query: {key:'value'}
+		url: 'https://www.taobao.com/',
+		headers: {
+			'User-Agent': 'vase/x.y.z'
+		}, 
+		query: {key:'value'}
 	}));
 
 
@@ -209,11 +219,11 @@ speed: 设置输出的速度kbs
 	
 	//返回qq官网首页
 	out(request({
-  		url: 'http://www.qq.com/',
-  		method: 'get',
-  		headers: {
-    		'User-Agent': 'vase/x.y.z'
-  		}
+		url: 'http://www.qq.com/',
+		method: 'get',
+		headers: {
+			'User-Agent': 'vase/x.y.z'
+		}
 	}));
 
 关于request的更多功能请参考：[https://github.com/axios/axios#request-config](https://github.com/axios/axios#request-config)
@@ -241,21 +251,21 @@ speed: 设置输出的速度kbs
 ``` txt
 out(merge(true, json('{"test": 123}'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json')));
 ```
-	
+
 ### random(arg1, ..., argN)
 数据获取参数列表中的一个
 
 	out(random(json('{"test": 123}'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json'), 'test', file('/User/xxx/test.html')));
-	
+
 ### join(arr, seperator)
 与数组的`join`方法一样，拼接数组， `seperator`默认为`''`
 
 	out(join([json('{"test": 123}'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json')), 'test', file('/User/xxx/test.html')]));
-	
+
 如果使用默认的separator(`''`)，也可以写成这样 `join(arg1, ..., argN)`
 
 	out(join(json('{"test": 123}'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json')), 'test', file('/User/xxx/test.html')));
-	
+
 
 
 ### req对象
@@ -263,7 +273,7 @@ out(merge(true, json('{"test": 123}'), json(get('https://raw.githubusercontent.c
 请求对象，包含：headers、method、body、query、url、locals(=merge(req.query, req.body))
 
 	out(req);
-	
+
 ### render(tpl[, locals[, engineType]])
 
 渲染模板
@@ -283,11 +293,11 @@ engineType：可选，渲染引擎名称，包含 [default](#default)、[doT](#d
 		
 		//切换engine
 		out(render('test-dust', json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json')), 'handlebars'));
-		
+	
 2. 如果tpl是字符串或数字，且没有对应的vase模板，则这些字符串作为模板内容
 
 		out(render('Hello {{name}}', json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json')), 'handlebars'));
-		
+	
 3. 渲染线上模板
 
 		out(render(get('http://www.qq.com/'), json(get('https://raw.githubusercontent.com/avwo/whistle/master/package.json')), 'handlebars'));
@@ -313,13 +323,13 @@ engineType：可选，渲染引擎名称，包含 [default](#default)、[doT](#d
 	out(join(render('test-mustache', {name: 'mustache'}), '<br>'), 1000);
 	out(join(render('test-nunjucks', {name: 'nunjucks'}), '<br>'), 1000);
 	out(render('test-vm', {name: 'vm'}));
-	
+
 `text-xxx`表示在vase上配置的模板
 	
 #### 随机输出
 
 	out(random(render('test-default'), render('test-doT', {name: 'doT'}), render('test-dust', {name: 'dust'})));
-	
+
 ### 结合上述两种情况
 
 	for (var i = 0; i < 10; i++) {
