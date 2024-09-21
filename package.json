@@ -29,7 +29,6 @@
     "mockjs": "^1.1.0",
     "mustache": "^4.2.0",
     "nunjucks": "^3.2.3",
-    "q": "^1.5.1",
     "velocityjs": "^2.0.3"
   },
   "scripts": {
